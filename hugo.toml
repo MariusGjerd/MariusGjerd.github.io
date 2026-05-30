@@ -1,0 +1,49 @@
+baseURL = "https://MariusGjerd.github.io/"
+title = "Marius Gjerd"
+theme = "PaperMod"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[languages.en]
+languageName = "English"
+weight = 1
+title = "Marius Gjerd"
+
+[languages.en.params]
+description = "Notes from the bridge between IT and OT"
+
+[languages.no]
+languageName = "Norsk"
+weight = 2
+title = "Marius Gjerd"
+
+[languages.no.params]
+description = "Notater fra broen mellom IT og OT"
+
+[params]
+ShowReadingTime = true
+ShowShareButtons = false
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
+ShowWordCount = false
+
+[params.homeInfoParams]
+Title = "Hi, I'm Marius Gjerd"
+Content = "Developer in Bergen, working at the bridge between IT and OT. Currently studying Industrial Automation alongside my day job. I write here when I have something worth sharing."
+
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/MariusGjerd"
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/marius-gjerd/"
+
+[markup.highlight]
+style = "github-dark"
+codeFences = true
+lineNos = false
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
