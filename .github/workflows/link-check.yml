@@ -1,0 +1,21 @@
+name: Check links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 1'  # Hver mandag kl 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Link checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose --no-progress './content/**/*.md' './README.md'
+          fail: false

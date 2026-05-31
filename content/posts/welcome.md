@@ -3,7 +3,15 @@ title: "Why this blog exists"
 date: 2026-05-30
 draft: false
 tags: ["meta", "career", "ot", "it"]
+categories: ["meta"]
+description: "An introduction to who I am, what I'm doing with a degree in Industrial Automation, and what I plan to write about on this blog."
+keywords: ["IT/OT", "industrial automation", "developer blog", "OT security", "Bergen"]
 summary: "An introduction — who I am, what I'm doing, and what I plan to write about."
+cover:
+  image: ""
+  alt: ""
+  caption: ""
+  relative: false
 ---
 
 Hi, I'm Marius Gjerd — a developer based in Bergen, Norway, working at the crossroads of code and physical infrastructure.

@@ -3,7 +3,15 @@ title: "Hvorfor denne bloggen finnes"
 date: 2026-05-30
 draft: false
 tags: ["meta", "karriere", "ot", "it"]
+categories: ["meta"]
+description: "En introduksjon til hvem jeg er, hva jeg gjør med en fagskoleutdanning i Industriell Automasjon, og hva jeg planlegger å skrive om på denne bloggen."
+keywords: ["IT/OT", "industriell automasjon", "utviklerblogg", "OT-sikkerhet", "Bergen"]
 summary: "En introduksjon — hvem jeg er, hva jeg gjør, og hva jeg planlegger å skrive om."
+cover:
+  image: ""
+  alt: ""
+  caption: ""
+  relative: false
 ---
 
 Hei, jeg er Marius Gjerd — utvikler bosatt i Bergen, og jeg jobber i krysset mellom kode og fysisk infrastruktur.
