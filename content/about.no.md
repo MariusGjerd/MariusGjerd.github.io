@@ -1,6 +1,5 @@
 ---
 title: "Om meg"
-url: "/about"
 summary: "Om meg"
 ---
 
