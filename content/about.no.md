@@ -4,21 +4,22 @@ url: "/about"
 summary: "Om meg"
 ---
 
-Jeg heter Marius Gjerd – utvikler bosatt i Bergen, og jobber i krysset mellom kode og fysisk infrastruktur.
+Jeg er Marius Gjerd — utvikler i Bergen, og jeg jobber i broen mellom IT og OT.
 
-Jeg startet som elektriker. Etter fagbrevet jobbet jeg en periode på reelle industrielle installasjoner før jeg gikk over til programvare. De siste årene har jeg bygd IoT-løsninger i energibransjen hos Prelect, der koden jeg skriver snakker med fysiske systemer ute i den virkelige verden.
+Jeg startet som elektriker. Etter fagbrevet jobbet jeg med ekte industrielle installasjoner — den typen der en ledningsfeil utløser en sikring i et bygg, ikke bare en feilmelding i en logg. Deretter gikk jeg over til programvareutvikling, og de siste årene har jeg bygget IoT-løsninger i energibransjen hos Prelect, der koden jeg skriver kommuniserer med fysiske systemer i den virkelige verden.
 
-Til høsten starter jeg på en treårig fagskoleingeniør-utdanning i Industriell Automasjon ved Fagskulen Vestland, ved siden av jobben. Utdanningen dekker PLS, instrumentering, industrielle nettverk og OT-sikkerhet – det formelle industrielle motstykket til IT-siden jeg allerede kan.
+Til høsten starter jeg på en treårig fagskoleingeniørutdanning i Industriell Automasjon ved Fagskulen Vestland, ved siden av jobben. PLS, instrumentering, industrielle nettverk, OT-sikkerhet — den formelle industrisiden av det jeg allerede gjør i praksis.
 
-**Hva jeg er interessert i**
+**Hva jeg skriver om**
 
-Broen mellom IT og OT. Utvikleres skybaserte verden og industrielle styringssystemers fysiske verden snakker ikke samme språk, selv når de må jobbe sammen.
+Gapet mellom IT og OT er reelt og kostbart. De fleste utviklere har aldri rørt en PLS. De fleste automasjonsingeniører har aldri feilsøkt en skybasert datapipeline. Jeg har gjort begge deler, og jeg skriver om det jeg har lært i det krysset:
 
-**Hva jeg skriver om her**
-
-Det jeg lærer underveis – tekniske dypdykk når noe fortjener det, kortere refleksjoner når noe ikke gjør det. Koden bak prosjektene ligger åpent på [GitHub](https://github.com/MariusGjerd).
+- Hva som skjer når koden du skriver får reelle konsekvenser for ekte utstyr
+- Hvordan spore en sensoravlesning fra fysisk installasjon til skyapplikasjon — og hvor den lyver for deg underveis
+- OT-sikkerhet sett med utviklerøyne: hva truslene faktisk ser ut som, og hvilke forsvarstiltak som gir mening
+- Hva IT-folk tar feil om industrielle systemer, og hva automasjonsingeniører tar feil om programvare
 
 **Andre steder**
 
 - [GitHub](https://github.com/MariusGjerd)
-- [LinkedIn](https://www.linkedin.com/in/marius-gjerd)
+- [LinkedIn](https://www.linkedin.com/in/marius-gjerd/)
