@@ -1,0 +1,17 @@
+{{- if eq .Section "posts" }}
+<aside class="author-box">
+  <img class="author-box-img" src="/avatar.jpg" width="64" height="64" alt="Marius Gjerd" loading="lazy">
+  <div class="author-box-text">
+    {{- if eq .Language.Lang "no" }}
+    <p><strong>Skrevet av Marius Gjerd.</strong> Jeg startet som elektriker, gikk over til programvare, og studerer nå industriell automasjon i Bergen ved siden av jobben med IoT i energisektoren. Her tenker jeg høyt om skjøten mellom IT og OT. Har du en rettelse eller en historie selv? <a href="https://www.linkedin.com/in/marius-gjerd/">Finn meg på LinkedIn.</a></p>
+    {{- else }}
+    <p><strong>Written by Marius Gjerd.</strong> I started out as an electrician, moved into software, and I'm now studying industrial automation in Bergen while building IoT in the energy sector. This blog is where I think out loud about the seam between IT and OT. Got a correction, or a story of your own? <a href="https://www.linkedin.com/in/marius-gjerd/">Find me on LinkedIn.</a></p>
+    {{- end }}
+  </div>
+</aside>
+<style>
+.author-box{display:flex;gap:1rem;align-items:flex-start;margin:2.5rem 0 0;padding:1.2rem 1.4rem;border:1px solid var(--border);border-radius:var(--radius)}
+.author-box-img{border-radius:50%;flex-shrink:0}
+.author-box-text p{margin:0;font-size:.95rem;line-height:1.6}
+</style>
+{{- end }}

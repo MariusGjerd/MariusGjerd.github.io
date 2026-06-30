@@ -6,7 +6,7 @@ tags: ["meta", "career", "ot", "it"]
 categories: ["meta"]
 description: "An introduction to who I am, what I'm doing with a degree in Industrial Automation, and what I plan to write about on this blog."
 keywords: ["IT/OT", "industrial automation", "developer blog", "OT security", "Bergen"]
-summary: "An introduction — who I am, what I'm doing, and what I plan to write about."
+summary: "An introduction to who I am, what I'm doing, and what I plan to write about."
 cover:
   image: ""
   alt: ""
@@ -14,11 +14,11 @@ cover:
   relative: false
 ---
 
-Hi, I'm Marius Gjerd — a developer based in Bergen, Norway, working at the crossroads of code and physical infrastructure.
+Hi, I'm Marius Gjerd, a developer based in Bergen, Norway, working at the crossroads of code and physical infrastructure.
 
-I started out as an electrician. Then I learned to write software, and for the past few years I've been building IoT solutions in the energy sector. This autumn I'm starting a three-year degree in Industrial Automation alongside my day job — covering PLCs, instrumentation, industrial networks, and OT security.
+I started out as an electrician. Then I learned to write software, and for the past few years I've been building IoT solutions in the energy sector. This autumn I'm starting a three-year degree in Industrial Automation alongside my day job. It covers PLCs, instrumentation, industrial networks, and OT security.
 
-That's a deliberate move. The bridge between IT and OT — between the cloud-connected world of developers and the physical world of industrial control systems — is somewhere I find genuinely interesting, and a place where very few people are comfortable on both sides.
+That's a deliberate move. The bridge between IT and OT, between the cloud-connected world of developers and the physical world of industrial control systems, is somewhere I find genuinely interesting, and a place where very few people are comfortable on both sides.
 
 This blog is where I'll write about what I learn along the way. Expect posts on:
 

@@ -6,7 +6,7 @@ tags: ["ot", "it", "driftssikkerhet", "bridge-builder"]
 categories: ["bridge-builder"]
 description: "Webutviklere tenker på oppetid i form av responstider og feilrater. I industrielle systemer måles kostnadene ved nedetid i noe helt annet."
 keywords: ["OT driftssikkerhet", "SCADA oppetid", "industrielle systemer", "IT/OT"]
-summary: "Webutviklere og industriingeniører tenker forskjellig om oppetid. Her er hvorfor — og hva det koster når du ikke forstår forskjellen."
+summary: "Webutviklere og industriingeniører tenker forskjellig om oppetid. Her er hvorfor, og hva det koster når du ikke forstår forskjellen."
 ---
 
 Det finnes en samtale som oppstår når IT-utviklere møter operasjonell teknologi for første gang. Den pleier å gå omtrent slik:
@@ -17,7 +17,7 @@ Det finnes en samtale som oppstår når IT-utviklere møter operasjonell teknolo
 
 «Det er omtrent 8 timer nedetid i året. Det kan vi jobbe med.»
 
-«Nei — 99,9 prosent *per skift*. Vi kjører 24/7. Og hvis systemet går ned midt i et batchkjør, mister vi hele batchen.»
+«Nei, 99,9 prosent *per skift*. Vi kjører 24/7. Og hvis systemet går ned midt i et batchkjør, mister vi hele batchen.»
 
 IT-utvikleren nikker, noterer noe, og regner stille om.
 
@@ -33,7 +33,7 @@ I industrielle styringssystemer er ikke «systemet» programvaren. Det er den fy
 
 Et vannbehandlingsanlegg pauser ikke mens du ruller tilbake en SCADA-oppdatering. En sementkjerne som kjører på 1400°C venter ikke på din deployment-pipeline. En papirmaskin som kjører på 1000 meter per minutt prøver ikke på nytt når din historikk går offline.
 
-Den fysiske prosessen fortsetter uansett om programvaren er frisk eller ikke. Og hvis programvaren mister kontrollen over prosessen — selv kortvarig — måles konsekvensene i:
+Den fysiske prosessen fortsetter uansett om programvaren er frisk eller ikke. Og hvis programvaren mister kontrollen over prosessen, selv kortvarig, måles konsekvensene i:
 
 - Tapte batcher
 - Skadet utstyr fra drift utenfor trygge parametere
@@ -58,4 +58,4 @@ Hvis du skriver programvare som kommuniserer med industrielle systemer:
 
 **Forstå prosessen før du rører den.** Operatørene som driver anlegget vet ting om feilmoder som ikke er i noen dokumentasjon. Snakk med dem før du skriver en linje kode.
 
-SLA-tallet på kontrakten er den enkle delen. Å forstå hva det faktisk betyr for det som styres — det er der det virkelige arbeidet er.
+SLA-tallet på kontrakten er den enkle delen. Å forstå hva det faktisk betyr for det som styres, er den vanskelige delen.

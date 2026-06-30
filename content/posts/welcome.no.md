@@ -6,7 +6,7 @@ tags: ["meta", "karriere", "ot", "it"]
 categories: ["meta"]
 description: "En introduksjon til hvem jeg er, hva jeg gjør med en fagskoleutdanning i Industriell Automasjon, og hva jeg planlegger å skrive om på denne bloggen."
 keywords: ["IT/OT", "industriell automasjon", "utviklerblogg", "OT-sikkerhet", "Bergen"]
-summary: "En introduksjon — hvem jeg er, hva jeg gjør, og hva jeg planlegger å skrive om."
+summary: "En introduksjon til hvem jeg er, hva jeg gjør, og hva jeg planlegger å skrive om."
 cover:
   image: ""
   alt: ""
@@ -14,11 +14,11 @@ cover:
   relative: false
 ---
 
-Hei, jeg er Marius Gjerd — utvikler bosatt i Bergen, og jeg jobber i krysset mellom kode og fysisk infrastruktur.
+Hei, jeg er Marius Gjerd, utvikler bosatt i Bergen, og jeg jobber i krysset mellom kode og fysisk infrastruktur.
 
-Jeg startet som elektriker. Så lærte jeg å skrive programvare, og de siste årene har jeg bygget IoT-løsninger i energibransjen. Til høsten starter jeg på en treårig fagskoleingeniør-utdanning i Industriell Automasjon ved siden av jobben — med fag som PLS, instrumentering, industrielle nettverk og OT-sikkerhet.
+Jeg startet som elektriker. Så lærte jeg å skrive programvare, og de siste årene har jeg bygget IoT-løsninger i energibransjen. Til høsten starter jeg på en treårig fagskoleingeniør-utdanning i Industriell Automasjon ved siden av jobben. Studiet dekker fag som PLS, instrumentering, industrielle nettverk og OT-sikkerhet.
 
-Det er et bevisst valg. Broen mellom IT og OT — mellom utvikleres skybaserte verden og industrielle styringssystemers fysiske verden — er et sted jeg synes er reelt interessant, og et sted der svært få er komfortable på begge sider.
+Det er et bevisst valg. Broen mellom IT og OT, mellom utvikleres skybaserte verden og industrielle styringssystemers fysiske verden, er et sted jeg synes er reelt interessant, og et sted der svært få er komfortable på begge sider.
 
 Denne bloggen er der jeg skal skrive om det jeg lærer underveis. Forvent innlegg om:
 

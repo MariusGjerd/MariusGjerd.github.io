@@ -3,6 +3,7 @@ title = "Marius Gjerd"
 theme = "PaperMod"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
+enableRobotsTXT = true
 
 [languages.en]
 languageName = "English"
@@ -21,6 +22,9 @@ title = "Marius Gjerd"
 description = "Notater fra broen mellom IT og OT"
 
 [params]
+author = "Marius Gjerd"
+keywords = ["IT/OT", "OT security", "industrial automation", "IIoT", "SCADA", "sensor data", "Bergen", "developer"]
+images = ["/avatar.jpg"]
 ShowReadingTime = true
 ShowShareButtons = false
 ShowPostNavLinks = true
@@ -28,9 +32,14 @@ ShowBreadCrumbs = true
 ShowCodeCopyButtons = true
 ShowWordCount = false
 
+[params.assets]
+favicon = "/avatar.jpg"
+apple_touch_icon = "/avatar.jpg"
+disableHLJS = true
+
 [params.homeInfoParams]
 Title = "Hi, I'm Marius"
-Content = "Developer in Bergen, working at the bridge between IT and OT. Currently studying Industrial Automation alongside my day job. I write here when I have something worth sharing."
+Content = "Developer in Bergen, working at the bridge between IT and OT. I started out as an electrician, moved into software, and these days I build IoT in the energy sector. I write here when I have something worth sharing.\n\n**Currently:** starting a 3-year Industrial Automation degree this autumn, and writing up what I learn about sensor data you can (and can't) trust."
 imageUrl = "/avatar.jpg"
 imageWidth = 120
 imageHeight = 120
@@ -50,29 +59,17 @@ codeFences = true
 lineNos = false
 
 [outputs]
-home = ["HTML", "RSS", "JSON"]
+home = ["HTML", "RSS"]
 
 [taxonomies]
 tag = "tags"
 category = "categories"
 
 [[languages.en.menu.main]]
-identifier = "search"
-name = "Search"
-url = "/search/"
-weight = 10
-
-[[languages.en.menu.main]]
 identifier = "about"
 name = "About"
 url = "/about/"
 weight = 20
-
-[[languages.no.menu.main]]
-identifier = "search"
-name = "Søk"
-url = "/search/"
-weight = 10
 
 [[languages.no.menu.main]]
 identifier = "about"

@@ -6,7 +6,7 @@ tags: ["ot", "it", "reliability", "bridge-builder"]
 categories: ["bridge-builder"]
 description: "Web developers think about uptime in terms of response times and error rates. In industrial systems, the cost of downtime is measured in something else entirely."
 keywords: ["OT reliability", "SCADA uptime", "industrial systems", "IT/OT", "uptime SLA"]
-summary: "Web developers think about uptime differently than industrial engineers. Here's why — and what it costs when you don't understand the difference."
+summary: "Web developers think about uptime differently than industrial engineers. Here's why, and what it costs when you don't understand the difference."
 ---
 
 There's a conversation that happens when IT developers first encounter operational technology. It usually goes something like this:
@@ -17,7 +17,7 @@ There's a conversation that happens when IT developers first encounter operation
 
 "That's about 8 hours of downtime per year. We can work with that."
 
-"No — 99.9% *per shift*. We run 24/7. And if the system goes down mid-batch, we lose the entire batch."
+"No, 99.9% *per shift*. We run 24/7. And if the system goes down mid-batch, we lose the entire batch."
 
 The IT developer nods, makes a note, and quietly recalculates.
 
@@ -35,7 +35,7 @@ In industrial control systems, "the system" is not the software. It's the physic
 
 A water treatment plant doesn't pause while you roll back a SCADA update. A cement kiln running at 1400°C doesn't wait for your deployment pipeline. A paper machine running at 1000 meters per minute doesn't retry when your historian goes offline.
 
-The physical process continues whether the software is healthy or not. And if the software loses control of the process — even briefly — the consequences are measured in:
+The physical process continues whether the software is healthy or not. And if the software loses control of the process, even briefly, the consequences are measured in:
 
 - Batches scrapped
 - Equipment damaged by running outside safe parameters
@@ -64,4 +64,4 @@ If you're writing software that talks to industrial systems, a few things are wo
 
 **Understand the process before you touch it.** The operators who run the plant know things about failure modes that aren't in any documentation. Talk to them before you write a line of code.
 
-The SLA number on the contract is the easy part. Understanding what it actually means for the thing being controlled — that's where the real work is.
+The SLA number on the contract is the easy part. Understanding what it actually means for the thing being controlled is the hard part.
