@@ -1,6 +1,6 @@
 ---
 title: "Can you trust your sensor data? A developer's guide to the full stack"
-date: 2026-07-07
+date: 2026-06-30
 draft: false
 tags: ["data", "sensors", "iot", "scada", "data-quality", "data-lifecycle"]
 categories: ["data-lifecycle"]
