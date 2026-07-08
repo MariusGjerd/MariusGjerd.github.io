@@ -1,0 +1,24 @@
+{{- $nl := site.Params.newsletter }}
+{{- if $nl }}
+<aside class="newsletter-box">
+  {{- if eq .Language.Lang "no" }}
+  <p class="newsletter-title"><strong>Få neste innlegg i innboksen</strong></p>
+  <p class="newsletter-sub">Omtrent annenhver uke: én artikkel om hva som skjer når kode møter den virkelige verden. Ingen fyll.</p>
+  {{- else }}
+  <p class="newsletter-title"><strong>Get the next one in your inbox</strong></p>
+  <p class="newsletter-sub">Roughly every two weeks: one piece about what happens when code touches the real world. No filler.</p>
+  {{- end }}
+  {{- with $nl.embedScript }}
+  <script async src="{{ . }}"></script>
+  {{- else }}
+  <a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq .Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
+  {{- end }}
+</aside>
+<style>
+.newsletter-box{margin:2.5rem 0 0;padding:1.2rem 1.4rem;border:1px solid var(--border);border-radius:var(--radius)}
+.newsletter-box .newsletter-title{margin:0 0 .3rem;font-size:1rem}
+.newsletter-box .newsletter-sub{margin:0 0 .8rem;font-size:.95rem;line-height:1.6;color:var(--secondary)}
+.newsletter-btn{display:inline-block;padding:.5rem 1.1rem;border-radius:var(--radius);background:var(--primary);color:var(--theme);font-size:.95rem;font-weight:500}
+.newsletter-btn:hover{opacity:.85}
+</style>
+{{- end }}

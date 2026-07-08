@@ -32,6 +32,12 @@ ShowBreadCrumbs = true
 ShowCodeCopyButtons = true
 ShowWordCount = false
 
+[params.newsletter]
+# Fallback link used until embedScript is set
+subscribeUrl = "https://marius-newsletter-d94bcd.beehiiv.com/subscribe"
+# Paste the script src from beehiiv: Subscribers -> Subscribe forms -> "Blog inline form" -> Get embed code
+embedScript = ""
+
 [params.assets]
 favicon = "/avatar.jpg"
 apple_touch_icon = "/avatar.jpg"

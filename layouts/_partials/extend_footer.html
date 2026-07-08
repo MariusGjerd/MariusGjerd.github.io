@@ -1,0 +1,14 @@
+{{- with site.Params.newsletter }}
+<div class="footer-newsletter">
+  {{- if eq $.Language.Lang "no" }}
+  <a href="{{ .subscribeUrl }}" rel="noopener">Nyhetsbrev: ett innlegg annenhver uke, rett i innboksen</a>
+  {{- else }}
+  <a href="{{ .subscribeUrl }}" rel="noopener">Newsletter: one piece every two weeks, straight to your inbox</a>
+  {{- end }}
+</div>
+<style>
+.footer-newsletter{text-align:center;padding:.5rem 0;font-size:.9rem}
+.footer-newsletter a{color:var(--secondary)}
+.footer-newsletter a:hover{color:var(--primary)}
+</style>
+{{- end }}
