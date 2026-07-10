@@ -1,5 +1,5 @@
 ---
-title: "Kan du stole på sensordataene dine? En utvikleres guide til hele stacken"
+title: "Kan du stole på sensordataene dine? En utviklers guide til hele stacken"
 date: 2026-06-30
 draft: false
 tags: ["data", "sensorer", "iot", "scada", "datakvalitet", "data-lifecycle"]
