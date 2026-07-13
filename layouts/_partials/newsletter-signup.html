@@ -10,7 +10,21 @@
   {{- end }}
   {{- with $nl.formId }}
   <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="{{ . }}"></script>
+  <a class="newsletter-btn newsletter-fallback" href="{{ $nl.subscribeUrl }}" rel="noopener" hidden>{{ if eq $.Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
   <noscript><a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq $.Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a></noscript>
+  <script>
+    /* Adblockere (Privacy Badger, uBlock) stopper beehiiv-scriptet; vis knappen i stedet */
+    (function () {
+      var box = document.currentScript && document.currentScript.parentElement;
+      setTimeout(function () {
+        box = box || document.querySelector('.newsletter-box');
+        if (box && !box.querySelector('iframe')) {
+          var btn = box.querySelector('.newsletter-fallback');
+          if (btn) btn.hidden = false;
+        }
+      }, 2500);
+    })();
+  </script>
   {{- else }}
   <a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq .Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
   {{- end }}
