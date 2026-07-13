@@ -8,8 +8,9 @@
   <p class="newsletter-title"><strong>Get the next one in your inbox</strong></p>
   <p class="newsletter-sub">Roughly every two weeks: one piece about what happens when code touches the real world. No filler.</p>
   {{- end }}
-  {{- with $nl.embedScript }}
-  <script async src="{{ . }}"></script>
+  {{- with $nl.formId }}
+  <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="{{ . }}"></script>
+  <noscript><a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq $.Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a></noscript>
   {{- else }}
   <a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq .Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
   {{- end }}

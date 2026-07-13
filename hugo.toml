@@ -33,10 +33,10 @@ ShowCodeCopyButtons = true
 ShowWordCount = false
 
 [params.newsletter]
-# Fallback link used until embedScript is set
+# Fallback link, shown if formId is empty
 subscribeUrl = "https://marius-newsletter-d94bcd.beehiiv.com/subscribe"
-# Paste the script src from beehiiv: Subscribers -> Subscribe forms -> "Blog inline form" -> Get embed code
-embedScript = ""
+# beehiiv v3 subscribe form ("Blog inline form")
+formId = "dd96c025-20fa-461d-b7f7-2cc6baaf2edf"
 
 [params.assets]
 favicon = "/avatar.jpg"
