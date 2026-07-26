@@ -6,6 +6,7 @@ tags: ["4-20ma", "sensors", "plc", "scada", "data-quality", "data-lifecycle"]
 categories: ["data-lifecycle"]
 description: "The current loop is 70 years old and still carries most industrial sensor data. What the signal actually is, how it becomes a number, and where it lies."
 keywords: ["4-20mA", "current loop", "transmitter", "PLC analog input", "NAMUR NE43", "signal noise", "industrial sensors", "sensor wiring"]
+images: ["/og/what-4-20ma.png"]
 summary: "Most industrial sensor data still travels as a current between 4 and 20 milliamps. What the signal is, how it becomes a number in your database, and the ways it can quietly be wrong."
 ---
 

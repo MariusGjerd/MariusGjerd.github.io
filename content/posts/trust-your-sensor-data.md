@@ -6,6 +6,7 @@ tags: ["data", "sensors", "iot", "scada", "data-quality", "data-lifecycle"]
 categories: ["data-lifecycle"]
 description: "Every data pipeline starts with a sensor. Here's what happens to the data between the physical world and your application, and where it quietly starts lying to you."
 keywords: ["sensor data quality", "SCADA data", "IIoT data pipeline", "OT data", "Modbus", "4-20mA", "historian", "data trust"]
+images: ["/og/trust-your-sensor-data.png"]
 summary: "Your sensor data has been transformed, compressed, timestamped, and approximated before it reaches your application. Here's the full journey, and where to be suspicious."
 ---
 

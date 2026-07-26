@@ -1,0 +1,43 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+    </pattern>
+    <pattern id="gridBig" width="150" height="150" patternUnits="userSpaceOnUse">
+      <path d="M 150 0 L 0 0 0 150" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- paper -->
+  <rect width="1200" height="630" fill="#fbfbf9"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#gridBig)"/>
+
+  <!-- signal bar -->
+  <rect x="0" y="0" width="1200" height="8" fill="#2f6fdd"/>
+
+  <!-- corner registration marks -->
+  <path d="M 40 62 L 40 40 L 62 40" fill="none" stroke="#2f6fdd" stroke-width="3"/>
+  <path d="M 1160 568 L 1160 590 L 1138 590" fill="none" stroke="#2f6fdd" stroke-width="3"/>
+
+  <!-- kicker -->
+  <text x="80" y="88" font-family="Menlo, monospace" font-size="22" letter-spacing="3" fill="#2f6fdd">IT/OT FIELD NOTES</text>
+  <text x="1120" y="88" text-anchor="end" font-family="Menlo, monospace" font-size="22" letter-spacing="3" fill="#6a6d6f">DATA LIFECYCLE</text>
+
+  <!-- title -->
+  <text x="78" y="250" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="800" fill="#1a1a1b">WHAT 4-20mA</text>
+  <text x="78" y="352" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="800" fill="#1a1a1b">ACTUALLY MEANS</text>
+  <text x="82" y="410" font-family="Helvetica, Arial, sans-serif" font-size="36" fill="#6a6d6f">and why your zero is at 4</text>
+
+  <!-- 4-20mA scale motif -->
+  <rect x="80" y="478" width="80" height="26" fill="#d64545" rx="3"/>
+  <rect x="164" y="478" width="872" height="26" fill="#2f6fdd"/>
+  <rect x="1040" y="478" width="80" height="26" fill="#d64545" rx="3"/>
+  <text x="164" y="527" font-family="Menlo, monospace" font-size="18" fill="#6a6d6f">4 mA</text>
+  <text x="1036" y="527" text-anchor="end" font-family="Menlo, monospace" font-size="18" fill="#6a6d6f">20 mA</text>
+  <text x="600" y="496" text-anchor="middle" font-family="Menlo, monospace" font-size="15" letter-spacing="2" fill="#ffffff">MEASUREMENT RANGE</text>
+
+  <!-- byline -->
+  <text x="80" y="592" font-family="Menlo, monospace" font-size="21" letter-spacing="1" fill="#1a1a1b">MARIUS GJERD &#183; MARIUSGJERD.GITHUB.IO</text>
+  <text x="1120" y="592" text-anchor="end" font-family="Menlo, monospace" font-size="21" letter-spacing="1" fill="#6a6d6f">BERGEN 60.39&#176;N</text>
+</svg>

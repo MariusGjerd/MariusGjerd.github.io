@@ -6,6 +6,7 @@ tags: ["data", "sensorer", "iot", "scada", "datakvalitet", "data-lifecycle"]
 categories: ["data-lifecycle"]
 description: "Alle datapipelines starter med en sensor. Her er hva som skjer med dataene mellom den fysiske verden og applikasjonen din, og hvor de stille begynner å lyve for deg."
 keywords: ["sensordatakvalitet", "SCADA-data", "IIoT datapipeline", "OT-data", "Modbus", "4-20mA", "historikk", "datatillit"]
+images: ["/og/trust-your-sensor-data.png"]
 summary: "Sensordataene dine har blitt transformert, komprimert, tidsstemplet og tilnærmet før de når applikasjonen din. Her er hele reisen, og hvor du bør være skeptisk."
 ---
 

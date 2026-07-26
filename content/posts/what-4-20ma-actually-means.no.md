@@ -6,6 +6,7 @@ tags: ["4-20ma", "sensorer", "pls", "scada", "datakvalitet", "data-lifecycle"]
 categories: ["data-lifecycle"]
 description: "Strømsløyfen er 70 år gammel og bærer fortsatt mesteparten av verdens industrielle sensordata. Hva signalet faktisk er, hvordan det blir et tall, og hvor det lyver."
 keywords: ["4-20mA", "strømsløyfe", "transmitter", "PLS analog inngang", "NAMUR NE43", "signalstøy", "industrielle sensorer", "sensorkabling"]
+images: ["/og/what-4-20ma-no.png"]
 summary: "Mesteparten av industriell sensordata reiser fortsatt som strøm mellom 4 og 20 milliampere. Hva signalet er, hvordan det blir et tall i databasen din, og måtene det kan være feil på uten at du merker det."
 ---
 
