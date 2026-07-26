@@ -1,0 +1,58 @@
+/* Datasheet title-block on the About page (layouts/_shortcodes/specsheet.html) */
+.specsheet {
+  margin: 1.5rem 0 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  position: relative;
+  background-image:
+    repeating-linear-gradient(var(--grid-line, rgba(0,0,0,0.05)) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, var(--grid-line, rgba(0,0,0,0.05)) 0 1px, transparent 1px 24px);
+}
+.specsheet::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 12px; height: 12px;
+  border-top: 2px solid var(--signal);
+  border-left: 2px solid var(--signal);
+}
+.specsheet-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.specsheet-head span:first-child { color: var(--signal); }
+.specsheet-head span:last-child { color: var(--secondary); }
+.specsheet-rows { margin: 0; padding: 0.4rem 1rem 0.8rem; }
+.specsheet-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.specsheet-row:last-child { border-bottom: none; }
+.specsheet-row dt {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  padding-top: 0.15rem;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+.specsheet-row dd {
+  margin: 0;
+  color: var(--content);
+}
+.specsheet-row dd p { margin: 0; }
+@media (max-width: 640px) {
+  .specsheet-row { grid-template-columns: 1fr; gap: 0.15rem; }
+}

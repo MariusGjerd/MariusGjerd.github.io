@@ -1,0 +1,18 @@
+{{- /* Datasheet title-block. Inner lines: "LABEL | value", one per line. */ -}}
+<div class="specsheet">
+  <div class="specsheet-head">
+    <span>{{ .Get "title" | default "SPEC SHEET" }}</span>
+    <span>{{ .Get "ref" | default "REV 2026" }}</span>
+  </div>
+  <dl class="specsheet-rows">
+    {{- range (split (trim .Inner "\n") "\n") }}
+    {{- $parts := split . "|" }}
+    {{- if eq (len $parts) 2 }}
+    <div class="specsheet-row">
+      <dt>{{ trim (index $parts 0) " " }}</dt>
+      <dd>{{ trim (index $parts 1) " " | markdownify }}</dd>
+    </div>
+    {{- end }}
+    {{- end }}
+  </dl>
+</div>
