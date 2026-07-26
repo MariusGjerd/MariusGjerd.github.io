@@ -1,0 +1,81 @@
+{{- define "main" }}
+{{- $no := eq site.Language.Lang "no" }}
+{{- $sub := site.Params.newsletter.subscribeUrl }}
+
+<section class="home-hero">
+  <div class="hero-strip">
+    <span>IT/OT FIELD NOTES</span>
+    <span>BERGEN 60.39&deg;N 5.32&deg;E</span>
+  </div>
+  <h1 class="hero-question">
+    {{ if $no }}Hva skjer når koden din møter den virkelige verden?{{ else }}What happens when your code touches the real world?{{ end }}
+  </h1>
+  <p class="hero-bio">
+    {{ if $no }}Marius Gjerd &middot; elektriker &rarr; utvikler &rarr; IT/OT &middot; Bergen. Jeg bygger IoT i energisektoren og skriver om industriell sensordata du kan, og ikke kan, stole på.{{ else }}Marius Gjerd &middot; electrician &rarr; developer &rarr; IT/OT &middot; Bergen. I build IoT in the energy sector and write about industrial sensor data you can, and can't, trust.{{ end }}
+  </p>
+  <div class="hero-rule"></div>
+  <div class="hero-actions">
+    <a class="hero-cta" href="{{ $sub }}" rel="noopener">{{ if $no }}Abonner på nyhetsbrevet{{ else }}Subscribe to the newsletter{{ end }}</a>
+    <a class="hero-link" href="{{ if $no }}/no/about/{{ else }}/about/{{ end }}">{{ if $no }}Mer om meg{{ else }}About{{ end }}</a>
+  </div>
+</section>
+
+{{- $flagship := slice (site.GetPage "/posts/trust-your-sensor-data") (site.GetPage "/posts/what-4-20ma-actually-means") }}
+<section class="home-section">
+  <h2 class="home-h2">{{ if $no }}Start her{{ else }}Start here{{ end }}</h2>
+  <div class="card-grid">
+    {{- range $i, $p := $flagship }}
+    {{- if $p }}
+    <a class="post-card" href="{{ $p.RelPermalink }}">
+      <span class="card-index">DOC 0{{ add $i 1 }} &middot; {{ if $no }}LES FØRST{{ else }}READ FIRST{{ end }}</span>
+      <h3>{{ $p.Title }}</h3>
+      <p>{{ $p.Description }}</p>
+      <span class="card-more">{{ if $no }}Les innlegget{{ else }}Read the post{{ end }} &rarr;</span>
+    </a>
+    {{- end }}
+    {{- end }}
+  </div>
+</section>
+
+<section class="home-section">
+  <h2 class="home-h2">{{ if $no }}Det jeg skriver om{{ else }}What I write about{{ end }}</h2>
+  <div class="pillar-grid">
+    <a class="pillar" href="{{ if $no }}/no/categories/data-lifecycle/{{ else }}/categories/data-lifecycle/{{ end }}">
+      <span class="pillar-num">01</span>
+      <span class="pillar-title">{{ if $no }}Datakvalitet{{ else }}Data lifecycle{{ end }}</span>
+      <span class="pillar-desc">{{ if $no }}Kan du stole på disse dataene? Fra sensor til sky, og hvor de lyver.{{ else }}Can you trust this data? From sensor to cloud, and where it lies.{{ end }}</span>
+    </a>
+    <div class="pillar pillar-soon">
+      <span class="pillar-num">02</span>
+      <span class="pillar-title">{{ if $no }}OT-sikkerhet{{ else }}OT security{{ end }}</span>
+      <span class="pillar-desc">{{ if $no }}Industrielle trusler forklart for utviklere.{{ else }}Industrial threats explained for developers.{{ end }}</span>
+    </div>
+    <div class="pillar pillar-soon">
+      <span class="pillar-num">03</span>
+      <span class="pillar-title">{{ if $no }}Lab &amp; skole{{ else }}Lab &amp; school{{ end }}</span>
+      <span class="pillar-desc">{{ if $no }}Ærlige eksperimenter, åpen kildekode, det jeg lærer.{{ else }}Honest experiments, open source, what I learn.{{ end }}</span>
+    </div>
+    <a class="pillar" href="{{ if $no }}/no/categories/bridge-builder/{{ else }}/categories/bridge-builder/{{ end }}">
+      <span class="pillar-num">04</span>
+      <span class="pillar-title">{{ if $no }}Broen IT/OT{{ else }}Bridge builder{{ end }}</span>
+      <span class="pillar-desc">{{ if $no }}Hva IT og OT misforstår om hverandre.{{ else }}What IT and OT get wrong about each other.{{ end }}</span>
+    </a>
+  </div>
+</section>
+
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
+{{- $latest := first 5 $pages }}
+<section class="home-section">
+  <h2 class="home-h2">{{ if $no }}Siste innlegg{{ else }}Latest{{ end }}</h2>
+  <div class="latest-list">
+    {{- range $latest }}
+    <a class="latest-item" href="{{ .RelPermalink }}">
+      <span class="latest-title">{{ .Title }}</span>
+      <span class="latest-date">{{ .Date.Format "2006.01.02" }}</span>
+    </a>
+    {{- end }}
+  </div>
+  <a class="home-allposts" href="{{ if $no }}/no/posts/{{ else }}/posts/{{ end }}">{{ if $no }}Alle innlegg{{ else }}All posts{{ end }} &rarr;</a>
+</section>
+{{- end }}

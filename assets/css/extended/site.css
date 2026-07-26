@@ -1,0 +1,68 @@
+/* Site-wide "engineering datasheet" design language.
+   Shared tokens (--signal, --fault, --mono, grid vars) are declared in home.css
+   and bundled globally by PaperMod, so they are available here too. */
+
+/* Signal-blue status bar across the very top of every page */
+body {
+  border-top: 3px solid var(--signal);
+}
+
+/* Header: nameplate + monospace nav */
+.logo a {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 1.05rem !important;
+}
+#menu a,
+#menu span {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+#menu .active {
+  border-bottom: 2px solid var(--signal);
+}
+
+/* Post pages: mono meta, technical rules, signal-blue links */
+.post-meta,
+.post-meta a {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+}
+.post-content a {
+  color: var(--signal);
+  text-decoration-color: color-mix(in srgb, var(--signal) 45%, transparent);
+}
+.post-content a:hover {
+  text-decoration-thickness: 2px;
+}
+.post-content hr {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 2rem 0;
+}
+
+/* Post title gets a thin signal tick to the left, like a drawing callout */
+.post-title {
+  border-left: 3px solid var(--signal);
+  padding-left: 0.75rem;
+}
+
+/* List/section headers on archive pages match the datasheet section label */
+.page-header .breadcrumbs {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+}
+
+/* Footer: quiet mono */
+.footer {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
