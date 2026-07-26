@@ -35,7 +35,7 @@ PT100-ens motstand konverteres til et 4-20mA strømsignal av en transmitter. Den
 - Kabellengde og elektromagnetisk interferens kan introdusere støy. Et variabelfrekvensomformermotor i nærheten kan injisere nok støy til å få en avlesning til å hoppe med flere trinn.
 - Konverteringen fra strøm til verdi bruker et kalibrert spenn. Hvis transmitteren er konfigurert for 0-200°C, men området er endret til 0-150°C og ingen har rekonfigurert det, er alle avlesninger feil skalert.
 
-**Husk:** Innen den fysiske målingen har blitt et digitalt tall i PLSen, er den allerede skalert, kvantisert og potensielt påvirket av elektrisk støy.
+**Husk:** Innen den fysiske målingen har blitt et digitalt tall i PLSen, er den allerede skalert, kvantisert og potensielt påvirket av elektrisk støy. Jeg har skrevet et helt innlegg om dette steget: [Hva 4-20mA faktisk betyr](/no/posts/what-4-20ma-actually-means/).
 
 ## Steg 3: PLSens skansyklus
 

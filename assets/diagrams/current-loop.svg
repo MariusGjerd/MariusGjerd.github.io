@@ -1,0 +1,57 @@
+<svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Multi-wire schematic of a 4-20 mA current loop with three separated components: a 24 VDC power supply on the left, a two-wire transmitter at the top center, and a PLC analog input on the right. The supply plus terminal feeds the transmitter plus terminal, the transmitter minus terminal feeds the analog input plus terminal, and the return wire runs from the analog input minus terminal back to the supply minus terminal. The same current flows in the whole loop.">
+  <style>
+    .wire { stroke: var(--content, #333); stroke-width: 2; fill: none; }
+    .box { fill: var(--entry, #f6f6f6); stroke: var(--content, #333); stroke-width: 1.5; }
+    .lbl { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; fill: var(--content, #333); }
+    .sub { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; fill: var(--secondary, #666); }
+    .pol { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: var(--content, #333); }
+    .sig { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #2f6fdd; }
+    .term { fill: var(--content, #333); }
+    .arrow { fill: #2f6fdd; }
+  </style>
+
+  <!-- transmitter, top center, separated from both -->
+  <rect class="box" x="290" y="30" width="140" height="70" rx="6"/>
+  <text class="lbl" x="360" y="59" text-anchor="middle">transmitter</text>
+  <text class="sub" x="360" y="78" text-anchor="middle">+ sensor (2-wire)</text>
+  <circle class="term" cx="320" cy="100" r="3.5"/>
+  <text class="pol" x="306" y="118">+</text>
+  <circle class="term" cx="400" cy="100" r="3.5"/>
+  <text class="pol" x="406" y="118">&#8722;</text>
+
+  <!-- power supply, left -->
+  <rect class="box" x="40" y="110" width="140" height="110" rx="6"/>
+  <text class="lbl" x="110" y="158" text-anchor="middle">24 VDC</text>
+  <text class="sub" x="110" y="177" text-anchor="middle">power supply</text>
+  <circle class="term" cx="180" cy="140" r="3.5"/>
+  <text class="pol" x="166" y="132">+</text>
+  <circle class="term" cx="180" cy="190" r="3.5"/>
+  <text class="pol" x="166" y="184">&#8722;</text>
+
+  <!-- PLC analog input, right -->
+  <rect class="box" x="540" y="110" width="140" height="110" rx="6"/>
+  <text class="lbl" x="610" y="150" text-anchor="middle">PLC analog input</text>
+  <text class="sub" x="610" y="168" text-anchor="middle">250 &#937; &#8594; 1-5 V</text>
+  <circle class="term" cx="540" cy="140" r="3.5"/>
+  <text class="pol" x="548" y="132">AI+</text>
+  <circle class="term" cx="540" cy="190" r="3.5"/>
+  <text class="pol" x="548" y="184">AI&#8722;</text>
+
+  <!-- wire: supply + to transmitter +, right-angle routing -->
+  <polyline class="wire" points="180,140 320,140 320,100"/>
+  <polygon class="arrow" points="240,134 256,140 240,146"/>
+  <text class="sig" x="248" y="126" text-anchor="middle">4-20 mA</text>
+
+  <!-- wire: transmitter - to PLC AI+ -->
+  <polyline class="wire" points="400,100 400,140 540,140"/>
+  <polygon class="arrow" points="462,134 478,140 462,146"/>
+
+  <!-- return wire: PLC AI- to supply - -->
+  <line class="wire" x1="540" y1="190" x2="180" y2="190"/>
+  <polygon class="arrow" points="368,184 352,190 368,196"/>
+  <text class="sub" x="360" y="210" text-anchor="middle">return</text>
+
+  <!-- documentation -->
+  <text class="sub" x="360" y="246" text-anchor="middle">cable: 2 x 0.75 mm&#178; shielded twisted pair, shield grounded at one end</text>
+  <text class="sig" x="360" y="268" text-anchor="middle">series loop: the same 4-20 mA flows through every component</text>
+</svg>

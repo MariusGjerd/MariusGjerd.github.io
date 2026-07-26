@@ -1,0 +1,4 @@
+<aside class="terms-box">
+  <p class="terms-title">{{ .Get "title" | default "Words in this post, in plain language" }}</p>
+  {{ .Inner | markdownify }}
+</aside>

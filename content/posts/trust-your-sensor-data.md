@@ -35,7 +35,7 @@ The PT100's resistance is converted to a 4-20mA current signal by a transmitter.
 - Cable length and electromagnetic interference can introduce noise. A variable-frequency motor drive nearby can inject enough noise to make a reading jump by several counts.
 - The current-to-value conversion uses a calibrated span. If the transmitter is configured for 0-200°C but the range has changed to 0-150°C and nobody reconfigured it, every reading is scaled wrong.
 
-**What to remember:** By the time the physical measurement has become a digital number in the PLC, it has already been scaled, quantised, and potentially affected by electrical noise.
+**What to remember:** By the time the physical measurement has become a digital number in the PLC, it has already been scaled, quantised, and potentially affected by electrical noise. I wrote a whole post about this stage: [What 4-20mA actually means](/posts/what-4-20ma-actually-means/).
 
 ## Stage 3: The PLC scan cycle
 

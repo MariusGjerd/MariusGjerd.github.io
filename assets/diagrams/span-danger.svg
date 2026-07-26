@@ -1,0 +1,32 @@
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The same 12 mA current read against two different spans. With the transmitter's actual span of 0 to 150 degrees, 12 mA means 75 degrees. With the span your code assumes, 0 to 200 degrees, the same current computes to 100 degrees. The transmitter always wins.">
+  <style>
+    .lbl { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; fill: var(--content, #333); }
+    .sub { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; fill: var(--secondary, #666); }
+    .ok { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #2f6fdd; }
+    .bad { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #d64545; }
+    .track { fill: var(--border, #d8d8d8); opacity: 0.55; }
+    .dash { stroke: var(--content, #333); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  </style>
+
+  <!-- 12 mA line: x = 120 + (12-4)/16 * 500 = 370 -->
+  <text class="lbl" x="370" y="26" text-anchor="middle" font-weight="700">the same 12 mA</text>
+  <line class="dash" x1="370" y1="34" x2="370" y2="196"/>
+
+  <!-- row 1: the transmitter's actual span -->
+  <text class="lbl" x="120" y="52">span in the transmitter: 0-150 &#176;C</text>
+  <rect class="track" x="120" y="60" width="500" height="22" rx="4"/>
+  <circle cx="370" cy="71" r="6" fill="#2f6fdd"/>
+  <text class="ok" x="384" y="76">= 75 &#176;C, what it sends</text>
+  <text class="sub" x="120" y="100">4 mA = 0 &#176;C</text>
+  <text class="sub" x="620" y="100" text-anchor="end">20 mA = 150 &#176;C</text>
+
+  <!-- row 2: the span your code assumes -->
+  <text class="lbl" x="120" y="140">span your code assumes: 0-200 &#176;C</text>
+  <rect class="track" x="120" y="148" width="500" height="22" rx="4"/>
+  <circle cx="370" cy="159" r="6" fill="#d64545"/>
+  <text class="bad" x="384" y="164">= 100 &#176;C, what you compute</text>
+  <text class="sub" x="120" y="188">4 mA = 0 &#176;C</text>
+  <text class="sub" x="620" y="188" text-anchor="end">20 mA = 200 &#176;C</text>
+
+  <text class="sub" x="370" y="226" text-anchor="middle">same current, two different temperatures. The transmitter always wins, silently.</text>
+</svg>

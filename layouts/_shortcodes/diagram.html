@@ -1,0 +1,10 @@
+{{- $src := .Get "src" -}}
+{{- $svg := resources.Get (printf "diagrams/%s" $src) -}}
+{{- if $svg -}}
+<figure class="diagram">
+  {{ $svg.Content | safeHTML }}
+  {{- with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end -}}
+</figure>
+{{- else -}}
+{{- errorf "diagram shortcode: assets/diagrams/%s not found (page %s)" $src .Page.File.Path -}}
+{{- end -}}

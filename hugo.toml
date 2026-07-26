@@ -23,6 +23,7 @@ description = "Notater fra broen mellom IT og OT"
 
 [params]
 author = "Marius Gjerd"
+goatcounter = "mariusgjerd"
 keywords = ["IT/OT", "OT security", "industrial automation", "IIoT", "SCADA", "sensor data", "Bergen", "developer"]
 images = ["/avatar.jpg"]
 ShowReadingTime = true
@@ -58,6 +59,22 @@ url = "https://github.com/MariusGjerd"
 [[params.socialIcons]]
 name = "linkedin"
 url = "https://www.linkedin.com/in/marius-gjerd/"
+
+[[params.socialIcons]]
+name = "x"
+url = "https://x.com/MariusGjerd"
+
+[[params.socialIcons]]
+name = "bluesky"
+url = "https://bsky.app/profile/mariusgjerd.bsky.social"
+
+[[params.socialIcons]]
+name = "youtube"
+url = "https://www.youtube.com/@MariusGjerd"
+
+[[params.socialIcons]]
+name = "reddit"
+url = "https://www.reddit.com/user/Gullible_Bag_9005/"
 
 [markup.highlight]
 style = "github-dark"

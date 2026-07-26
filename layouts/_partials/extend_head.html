@@ -1,0 +1,6 @@
+{{- /* GoatCounter: personvernvennlig besøksstatistikk, ingen cookies.
+     Lastes kun i produksjon så lokale hugo server-økter ikke telles. */ -}}
+{{- if and hugo.IsProduction site.Params.goatcounter }}
+<script data-goatcounter="https://{{ site.Params.goatcounter }}.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+{{- end }}

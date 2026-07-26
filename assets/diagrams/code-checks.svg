@@ -1,0 +1,50 @@
+<svg viewBox="0 0 720 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A small ingestion flow for 4-20 mA values. A value arrives as milliamps or raw counts. If it is outside 3.8 to 20.5 milliamps it goes to the fault path: alarm it and keep it out of statistics. Otherwise apply the span, validate range and rate of change, and store the scaled value together with the raw one.">
+  <style>
+    .box { fill: var(--entry, #f6f6f6); stroke: var(--content, #333); stroke-width: 1.5; }
+    .fbox { fill: none; stroke: #d64545; stroke-width: 1.8; }
+    .lbl { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; fill: var(--content, #333); }
+    .sub { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11.5px; fill: var(--secondary, #666); }
+    .yes { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #2f6fdd; }
+    .no { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #d64545; }
+    .fault { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #d64545; }
+    .wire { stroke: var(--content, #333); stroke-width: 1.8; fill: none; }
+    .head { fill: var(--content, #333); }
+  </style>
+
+  <!-- value arrives -->
+  <rect class="box" x="25" y="55" width="140" height="56" rx="6"/>
+  <text class="lbl" x="95" y="79" text-anchor="middle">value arrives</text>
+  <text class="sub" x="95" y="97" text-anchor="middle">mA or raw counts</text>
+
+  <line class="wire" x1="165" y1="83" x2="196" y2="83"/>
+  <polygon class="head" points="196,78 206,83 196,88"/>
+
+  <!-- range check -->
+  <rect class="box" x="206" y="55" width="150" height="56" rx="6"/>
+  <text class="lbl" x="281" y="79" text-anchor="middle">inside 3.8-20.5 mA?</text>
+  <text class="sub" x="281" y="97" text-anchor="middle">the zones from above</text>
+
+  <!-- no: fault path -->
+  <line class="wire" x1="281" y1="111" x2="281" y2="142"/>
+  <polygon class="head" points="276,142 281,152 286,142"/>
+  <text class="no" x="290" y="136">no</text>
+  <rect class="fbox" x="191" y="152" width="180" height="56" rx="6"/>
+  <text class="fault" x="281" y="176" text-anchor="middle">fault path</text>
+  <text class="sub" x="281" y="194" text-anchor="middle">alarm it, keep it out of stats</text>
+
+  <!-- yes: continue -->
+  <line class="wire" x1="356" y1="83" x2="387" y2="83"/>
+  <polygon class="head" points="387,78 397,83 387,88"/>
+  <text class="yes" x="371" y="72" text-anchor="middle">yes</text>
+
+  <rect class="box" x="397" y="55" width="160" height="56" rx="6"/>
+  <text class="lbl" x="477" y="79" text-anchor="middle">apply the span</text>
+  <text class="sub" x="477" y="97" text-anchor="middle">validate range + rate</text>
+
+  <line class="wire" x1="557" y1="83" x2="588" y2="83"/>
+  <polygon class="head" points="588,78 598,83 588,88"/>
+
+  <rect class="box" x="598" y="55" width="100" height="56" rx="6"/>
+  <text class="lbl" x="648" y="79" text-anchor="middle">store scaled</text>
+  <text class="sub" x="648" y="97" text-anchor="middle">+ raw value</text>
+</svg>
