@@ -1,0 +1,17 @@
+{{- define "main" }}
+{{- $no := eq site.Language.Lang "no" }}
+<div class="fault-404">
+  <div class="fault-strip">
+    <span class="fault-mono">SIGNAL LOST</span>
+    <span class="fault-mono">0.0 mA · &lt; 3.6</span>
+  </div>
+  <div class="fault-code">404</div>
+  <p class="fault-msg">
+    {{ if $no }}Ingen avlesning på denne adressen. En død sensor kan ikke utgi seg for å være et kaldt rør, og en død lenke kan ikke utgi seg for å være en side.{{ else }}No reading at this address. A dead sensor cannot pretend to be a cold pipe, and a dead link cannot pretend to be a page.{{ end }}
+  </p>
+  <div class="fault-links">
+    <a href="{{ if $no }}/no/{{ else }}/{{ end }}">{{ if $no }}&#9656; Til forsiden{{ else }}&#9656; Home{{ end }}</a>
+    <a href="{{ if $no }}/no/posts/{{ else }}/posts/{{ end }}">{{ if $no }}&#9656; Alle innlegg{{ else }}&#9656; All posts{{ end }}</a>
+  </div>
+</div>
+{{- end }}{{/* end main */ -}}

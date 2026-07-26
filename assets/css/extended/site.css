@@ -66,3 +66,24 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.03em;
 }
+
+/* Branded 404: reads like a 4-20mA fault (0 mA = broken loop) */
+.fault-404 { max-width: 620px; margin: 3rem auto; text-align: center; }
+.fault-strip {
+  display: flex; justify-content: space-between;
+  border: 1px solid var(--border); border-radius: 2px;
+  padding: 0.5rem 0.9rem; margin-bottom: 1.5rem;
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.fault-strip span:first-child { color: var(--fault); }
+.fault-strip span:last-child { color: var(--secondary); }
+.fault-code {
+  font-family: var(--mono); font-weight: 700; font-size: clamp(4rem, 16vw, 7rem);
+  line-height: 1; color: var(--fault); letter-spacing: 0.02em;
+}
+.fault-msg { color: var(--secondary); max-width: 46ch; margin: 1rem auto 1.75rem; }
+.fault-links { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+.fault-links a {
+  font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 600; color: var(--signal);
+}
