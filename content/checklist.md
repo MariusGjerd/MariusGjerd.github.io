@@ -10,81 +10,81 @@ images: ["/og/trust-your-sensor-data.png"]
 
 If you write software that consumes industrial sensor data, this list is for you.
 
-Every item here is a specific way the number in your database stopped matching the physical world. None of them throw an error. That's the problem: bad industrial data almost never looks bad. It looks like a clean, plausible number, and it sits in your table next to all the good ones.
+Every item here is a specific way the number in your database can stop matching the physical world. None of them raise an error. That's the problem: bad industrial data doesn't look bad. It looks like an ordinary number, and it sits in your table next to all the good ones.
 
-I've grouped them by where in the chain they happen, because that's how you debug them. Work backwards from your database toward the pipe.
+The items are ordered by where in the chain the fault happens, starting at the sensor and working inward. That's also the order to debug in, just backwards.
 
-**Sixteen of these are things a machine can catch**, and I've written them up as [`sensorcheck.py`](/checklist/code/): one file, standard library only, nothing to install, plus a demo that prints a day of plant readings where the summary looks entirely reasonable and the data is full of holes. Free, no email required.
+**Sixteen of these are things a machine can check for you**, and they're written up as [`sensorcheck.py`](/checklist/code/): one file, standard library only, nothing to install. It comes with a demo that builds a day of plant data where the summary looks completely normal, then finds eleven problems in that same data. Free, no email.
 
 {{< newsletter >}}
 
 ## At the sensor
 
-**1. Tolerance class.** Your sensor has error bars before the reading goes anywhere. A PT100 in class B is accurate to ±0.3°C at 0°C, widening to ±1.3°C at 300°C. If your alert threshold is tighter than the sensor's accuracy, the alert is noise.
+**1. Tolerance class.** A sensor is inaccurate from the start. A PT100 in class B has a tolerance of ±0.3°C at 0°C, widening to ±1.3°C at 300°C. If your alert threshold is tighter than that, the alert fires on measurement uncertainty rather than on the process.
 
-**2. Calibration drift.** Sensors deviate from truth slowly over years, and almost nothing tells you it's happening. Ask when each sensor was last calibrated. If nobody knows, that's your answer.
+**2. Calibration drift.** Sensors change slowly over years, and nothing tells you it's happening. Find out when each sensor was last calibrated. If nobody knows, that is itself an answer about how much you can trust the number.
 
-**3. Installation.** A temperature sensor sitting in a dead zone rather than the flow, or with an air pocket around it, reads something real. Just not the thing you think it's reading.
+**3. Where the sensor sits.** Placement decides what a sensor actually measures. A temperature sensor in a pocket with no flow past it, or with air around it instead of liquid, measures the temperature exactly where it sits. That can be several degrees away from the temperature in the process itself. The sensor isn't doing anything wrong. It's answering a different question from the one you think you asked.
 
-**4. Response time.** A sensor inside a thermowell can lag the actual process by tens of seconds because the well itself has thermal mass. Your "current" temperature may describe the recent past.
+**4. Response time.** Temperature sensors usually sit inside a thermowell, a closed protective tube that reaches into the pipe or tank. The well itself has to heat up or cool down before the sensor inside notices anything changed. When the process moves quickly, the reading lags behind, from a few seconds to around half a minute. The value you read as "now" describes something that happened slightly earlier.
 
-**5. Ambient effects on the transmitter.** The electronics converting your measurement sit in a cabinet that gets hot in summer. Transmitter specs include a temperature coefficient for exactly this reason.
+**5. Cabinet temperature.** The transmitter, the electronics that turn the sensor signal into a 4-20mA current, normally sits in a cabinet. When that cabinet warms up in summer, the measurement shifts slightly. The datasheet states how much per degree, as a temperature coefficient. The effect is rarely large, but it's a systematic error that follows the seasons, and it is impossible to see from the database.
 
 ## In the signal path
 
-**6. Range and span mismatch.** The transmitter is configured for 0-200°C. The process was rescaled to 0-150°C three years ago and nobody reconfigured the transmitter. Every reading since then has been wrong by a consistent, entirely plausible-looking factor.
+**6. The range is configured wrong.** The transmitter is set up for 0-200°C. Three years ago the process changed to 0-150°C, but nobody reconfigured the transmitter. Every reading since has been scaled wrong by the same factor. The numbers still look entirely reasonable, which is why nobody has noticed.
 
-**7. Analog-to-digital resolution.** The 16mA span (4 to 20) gets divided by the input card's bit depth. That division sets the smallest change you can possibly detect. Asking for finer precision than that in your application is asking for fiction.
+**7. Resolution in the input card.** The current signal is converted to a digital number by an analog input card. How many steps that card divides the range into sets the smallest change you can possibly see. Ask for finer resolution than that in your code and you're calculating on decimals that don't exist.
 
-**8. Electrical noise.** A variable-frequency drive (the thing that controls motor speed) running near your signal cable can inject enough interference to move a reading by several counts. It comes and goes with the motor.
+**8. Electrical noise.** If the signal cable runs near a variable-frequency drive, the thing that controls motor speed, it can pick up interference from it. The reading jumps a few steps up and down, and the jumps come and go with the motor.
 
-**9. Live zero.** In 4-20mA, 4mA is the bottom of the range and 0mA means the loop is broken. If your ingestion code treats 0 as a valid measurement, you are recording dead sensors as real readings of zero. This one is common and it is nasty, because zero is often a physically plausible value.
+**9. Live zero.** In 4-20mA, 4mA is the bottom of the range. 0mA means the loop is broken: a cut cable or a dead transmitter. If your code accepts 0 as a valid measurement, you're storing faults as though they were real data. This is a common mistake and a hard one to spot, because zero is usually a physically plausible value.
 
 ## At the PLC
 
-**10. Scan cycle.** The PLC reads inputs, runs logic and writes outputs on a loop, typically every 10-100ms. Your values are samples from that loop, not a continuous stream. Anything faster than the cycle never existed as far as your data is concerned.
+**10. The scan cycle.** A PLC reads its inputs, runs the program and writes its outputs, over and over, typically every 10 to 100 milliseconds. The values you get out are snapshots from that loop, not a continuous measurement. Anything faster than the cycle doesn't exist in your data at all.
 
-**11. The timestamp is usually a poll time.** It records when the SCADA system asked, not when the physical event happened. Depending on poll frequency, those differ by seconds.
+**11. The timestamp says when the system asked.** Most timestamps are set when the SCADA system fetched the value, not when the measurement was taken. How big the difference is depends on how often the system polls. With infrequent polling it can be several seconds.
 
-**12. Undocumented scaling.** Raw counts get converted to engineering units by a scaling block inside the PLC program. The factors live in ladder logic that was written by a contractor in 2014.
+**12. Scaling nobody documented.** The raw value from the input card is converted to degrees or bar by a scaling block in the PLC program. The factors live in that logic, often written by a contractor years ago, and usually aren't written down anywhere else.
 
-**13. Last-known-value on failure.** Some systems hold the previous value when communication drops instead of marking the data bad. A frozen sensor and a genuinely stable process look identical in your table.
+**13. Last known value on a comms failure.** Some systems keep the previous value when the link drops instead of marking the data invalid. In the database, a dead sensor then looks exactly like a process sitting perfectly stable.
 
 ## At the SCADA system and historian
 
-**14. Deadbanding.** Historians commonly store a new value only when it has changed by more than a configured threshold. A flat line in your data can mean "nothing changed" or it can mean "we stopped bothering to record."
+**14. Deadband.** A historian often stores a new value only when it has moved more than a set threshold. That means a flat line in your data can mean two different things: the value really did sit still, or it changed too little to be recorded.
 
-**15. Querying a timestamp lies politely.** Ask a historian for the value at 14:32:17 and you get the last stored value before that moment, which might be from 14:00. Nothing in the response tells you it's 32 minutes stale.
+**15. Querying a timestamp gives you the last stored value.** Ask what the value was at 14:32:17 and you get the last value stored before that moment. It might be from 14:00. Nothing in the response tells you the number is half an hour old.
 
-**16. Lossy compression.** Historians use algorithms like swinging door to store a curve as a handful of points. What you read back is a reconstruction, and it is deliberately not the original.
+**16. Compression that loses detail.** Historians tend to store a curve as a handful of inflection points rather than every measurement. What you read back is an approximation of the original curve, and it's meant to be.
 
-**17. Dropped quality flags.** OPC and most historians carry a quality or status field alongside every value: good, bad, uncertain. A large share of pipelines select the value column and drop the quality column. That is throwing away the one field that tells you whether to trust the other one.
+**17. The quality flag that gets lost on the way.** OPC and most historians send a quality field with every value: good, bad or uncertain. Many pipelines fetch only the value and leave the quality field behind. You've then thrown away the one field that tells you whether to trust the one you kept.
 
-**18. Backfill rewrites history.** Late-arriving data gets inserted behind your read position. Any aggregate you computed before the backfill is now wrong, and nothing notified you.
+**18. Data that arrives late.** Values that turn up after newer data is already stored get inserted backwards into the series. If you computed an average or a total for that period beforehand, the result is now wrong, and nothing tells you the basis changed.
 
-## In your pipeline
+## In your own pipeline
 
-**19. Buffering behaviour on reconnect.** When the link drops, does the edge device buffer and then burst everything on reconnect, or does it drop the gap? Both are defensible. They corrupt your data in completely different ways, and you need to know which one you have.
+**19. What happens when the link drops.** The device in the field does one of two things: it buffers everything and sends it in one go when the connection returns, or it leaves the gap empty. Both are defensible. But they produce completely different errors in your data, and you need to know which one you have.
 
-**20. Local time.** Industrial systems frequently run in local time. Norwegian plants mean CET and CEST, so you inherit a seasonal one-hour offset against your UTC pipeline.
+**20. Local time against UTC.** Industrial systems often run on local time. In Norway that means timestamps sit one hour ahead of UTC in winter and two in summer, while your pipeline probably expects UTC all year.
 
-**21. The clocks change twice a year.** In autumn an hour repeats, so you get duplicate timestamps. In spring an hour vanishes, so you get a gap that isn't an outage. Both break naive time-series joins, and both happen on a schedule you can plan for.
+**21. Daylight saving.** In autumn the clocks go back and the hour between 02 and 03 happens twice. You get two sets of timestamps that look identical. In spring an hour is skipped and you get a gap that isn't an outage. Both break any calculation that assumes time moves forward evenly, and both happen on dates you know well in advance.
 
-**22. Resampling invents data.** Forward-fill, interpolate or drop are three different answers, and every one of them creates values that were never measured. Forward-filling a dead sensor produces a beautifully stable line that means nothing at all.
+**22. Resampling creates values nobody measured.** To turn irregular data into fixed intervals you have to choose: carry the last value forward, interpolate between two points, or leave the gap. All three produce numbers nobody measured. Carry the last value forward from a sensor that stopped responding and you get a clean, perfectly stable curve that means nothing.
 
-**23. Unit conversion.** Bar against psi, celsius against fahrenheit, m³/h against l/s. Usually somebody catches it. When they don't, it tends to be expensive.
+**23. Units.** Bar against psi, celsius against fahrenheit, cubic metres per hour against litres per second. Usually somebody catches it immediately, because the number goes absurd. The trouble is the cases where the factor is small enough that the result still looks reasonable.
 
 ## The short version
 
-Three habits cover most of this:
+Three habits cover most of it:
 
-**Keep the quality flag.** If your schema has no column for it, add one. It is the cheapest data quality win available and almost everyone skips it.
+**Keep the quality flag.** If your database has no column for it, add one. It's the simplest improvement on this whole list, and the one most often skipped.
 
-**Validate rate of change at ingestion.** A pipe temperature that moves from 70°C to 500°C in one second is a fault, not a process. Physical systems have physical limits, so enforce them at the door.
+**Check how fast the value moves.** A pipe temperature going from 70 to 500°C in one second is a fault, not a process. Physical systems have physical limits, and those limits belong at the point where data comes in.
 
-**Write down the uncertainty.** Sensor type, accuracy class, deadband setting, poll interval, all of it as metadata next to the data. The person who needs it is you, at two in the morning, trying to work out whether an anomaly is real.
+**Write down what you know about the uncertainty.** Sensor type, accuracy class, deadband, how often the system polls. Store it alongside the data. The person who needs it is you, at two in the morning, deciding whether a spike is real.
 
-And one that isn't technical: ask the operators. They know which sensors read a bit high and which one has been unreliable since the refit. That knowledge is almost never written down anywhere.
+And one that isn't technical: talk to the operators. They know which sensor always reads a bit high, and which one hasn't been trustworthy since the refit. It's almost never written down anywhere.
 
 ---
 

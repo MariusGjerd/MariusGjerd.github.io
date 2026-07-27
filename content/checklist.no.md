@@ -8,86 +8,86 @@ summary: "Hver eneste av disse har utløst en reell hendelse et sted. De fleste 
 images: ["/og/trust-your-sensor-data.png"]
 ---
 
-Skriver du programvare som spiser industrielle sensordata, er denne lista for deg.
+Skriver du programvare som bruker data fra industrielle sensorer, er denne lista for deg.
 
-Hvert punkt her er en konkret måte tallet i databasen sluttet å stemme med den fysiske verden. Ingen av dem kaster en feilmelding. Det er nettopp problemet: dårlige industridata ser nesten aldri dårlige ut. De ser ut som et rent, troverdig tall, og de ligger i tabellen din side om side med alle de riktige.
+Hvert punkt er en konkret måte tallet i databasen kan slutte å stemme med virkeligheten på. Ingen av dem gir en feilmelding. Det er nettopp problemet: dårlige industridata ser ikke dårlige ut. De ser ut som helt vanlige tall, og de ligger i tabellen side om side med de riktige.
 
-Jeg har gruppert dem etter hvor i kjeden de oppstår, for det er sånn du feilsøker dem. Jobb bakover fra databasen mot røret.
+Punktene er sortert etter hvor i kjeden feilen oppstår, fra sensoren og innover mot databasen. Det er også rekkefølgen du bør feilsøke i, bare motsatt vei.
 
-**Seksten av punktene er noe en maskin kan fange opp**, og de ligger ferdig skrevet i [`sensorcheck.py`](/checklist/code/): én fil, kun standardbiblioteket, ingenting å installere, pluss en demo som skriver ut et døgn med anleggsdata der sammendraget ser helt fornuftig ut og dataene er fulle av hull. Gratis, ingen e-post.
+**Seksten av punktene er noe en maskin kan sjekke for deg**, og de ligger ferdig skrevet i [`sensorcheck.py`](/checklist/code/): én fil, kun standardbiblioteket, ingenting å installere. Med følger en demo som lager et døgn med anleggsdata der sammendraget ser helt normalt ut, og som så finner elleve feil i de samme dataene. Gratis, ingen e-post.
 
 {{< newsletter >}}
 
-## Ute på giveren
+## Ute på sensoren
 
-**1. Toleranseklasse.** Giveren har feilmarginer før målingen har beveget seg en centimeter. En PT100 i klasse B holder ±0,3 °C ved 0 °C, og marginen vokser til ±1,3 °C ved 300 °C. Er alarmgrensen din strammere enn nøyaktigheten til giveren, er alarmen støy.
+**1. Toleranseklasse.** En sensor er unøyaktig fra første stund. En PT100 i klasse B har en toleranse på ±0,3 °C ved 0 °C, og den øker til ±1,3 °C ved 300 °C. Har du satt en alarmgrense som er strammere enn dette, går alarmen på måleusikkerhet og ikke på prosessen.
 
-**2. Kalibreringsdrift.** Givere sklir vekk fra sannheten langsomt, over år, og nesten ingenting varsler deg om at det skjer. Spør når giveren sist ble kalibrert. Vet ingen det, har du svaret.
+**2. Kalibreringsdrift.** Sensorer endrer seg langsomt over år, og ingenting varsler deg når det skjer. Finn ut når sensoren sist ble kalibrert. Er det ingen som vet, er det i seg selv et svar på hvor mye du kan stole på tallet.
 
-**3. Montasjen.** En temperaturgiver som står i en dødsone i stedet for i strømningen, eller som har en luftlomme rundt seg, måler noe helt reelt. Bare ikke det du tror den måler.
+**3. Hvor sensoren sitter.** Plasseringen avgjør hva sensoren faktisk måler. Står en temperatursensor i en krok uten gjennomstrømning, eller har den luft rundt seg i stedet for væske, måler den temperaturen akkurat der den står. Det kan være flere grader unna temperaturen i selve prosessen. Sensoren gjør ikke noe galt, den svarer bare på et annet spørsmål enn det du tror du stiller.
 
-**4. Responstid.** En giver som står i en dykklomme henger etter den faktiske prosessen med titalls sekunder, fordi lommen selv har termisk masse. "Nåværende" temperatur beskriver i praksis noe som skjedde nettopp.
+**4. Responstid.** Temperatursensorer står som regel i en følerlomme, altså et lukket beskyttelsesrør som stikker inn i røret eller tanken. Lommen må varmes opp eller kjøles ned før sensoren inni merker at noe har endret seg. Endrer prosessen seg raskt, ligger måleverdien etter, fra noen sekunder til rundt et halvt minutt. Verdien du leser som "nå" beskriver altså noe som skjedde litt tidligere.
 
-**5. Omgivelsene rundt måleomformeren.** Elektronikken som gjør målingen om til et signal står i en tavle som blir varm om sommeren. Derfor oppgir databladet en temperaturkoeffisient for omformeren.
+**5. Temperaturen i tavlen.** Måleomformeren, elektronikken som gjør sensorsignalet om til et 4-20 mA strømsignal, står vanligvis i en tavle. Blir tavlen varm om sommeren, forskyves målingen litt. Databladet oppgir hvor mye per grad, som en temperaturkoeffisient. Utslaget er sjelden stort, men det er en systematisk feil som følger årstiden, og den er umulig å se fra databasen.
 
 ## I signalveien
 
-**6. Feil måleområde.** Måleomformeren er stilt inn for 0-200 °C. Prosessen ble skalert om til 0-150 °C for tre år siden, og ingen rørte omformeren. Alle avlesninger siden da har vært feil med en jevn, fullstendig troverdig faktor.
+**6. Måleområdet er stilt inn feil.** Måleomformeren er satt opp for 0-200 °C. For tre år siden ble prosessen endret til 0-150 °C, men ingen stilte om omformeren. Siden da har alle avlesninger vært skalert feil med samme faktor. Tallene ser fortsatt helt rimelige ut, og det er derfor ingen har oppdaget det.
 
-**7. Oppløsning i analog-til-digital-omformingen.** De 16 mA (4 til 20) deles på bitoppløsningen til inngangskortet. Den divisjonen bestemmer den minste endringen du i det hele tatt kan oppdage. Ber du om finere presisjon enn det i applikasjonen, ber du om oppdiktede tall.
+**7. Oppløsningen i inngangskortet.** Strømsignalet gjøres om til et digitalt tall av et analogt inngangskort. Hvor mange trinn kortet deler måleområdet inn i, bestemmer den minste endringen du i det hele tatt kan se. Regner du med finere oppløsning enn det i koden din, regner du på desimaler som ikke finnes.
 
-**8. Elektrisk støy.** En frekvensomformer som styrer en motor i nærheten av signalkabelen kan sende inn nok støy til å flytte avlesningen flere trinn. Støyen kommer og går med motoren.
+**8. Elektrisk støy.** Ligger signalkabelen nær en frekvensomformer, altså den som styrer turtallet på en motor, kan kabelen plukke opp støy fra den. Avlesningen hopper noen trinn opp og ned, og hoppene kommer og går sammen med motoren.
 
-**9. Levende null.** I 4-20 mA er 4 mA bunnen av området, og 0 mA betyr at sløyfen er brutt. Behandler koden din 0 som en gyldig måling, registrerer du døde givere som ekte nullavlesninger. Denne er vanlig og den er ekkel, for null er ofte en fysisk troverdig verdi.
+**9. Levende null.** I 4-20 mA er 4 mA bunnen av måleområdet. 0 mA betyr at sløyfen er brutt, altså kabelbrudd eller en død omformer. Godtar koden din 0 som en gyldig måling, lagrer du feil som om de var ekte data. Dette er en vanlig tabbe, og den er vanskelig å oppdage, fordi null som regel er en fysisk troverdig verdi.
 
 ## I PLS-en
 
-**10. Skannsyklus.** PLS-en leser innganger, kjører logikken og skriver utganger i en løkke, typisk hver 10-100 ms. Verdiene dine er stikkprøver fra den løkken, ikke en sammenhengende strøm. Alt som skjer raskere enn syklusen har aldri eksistert, sett fra dataene.
+**10. Skannsyklusen.** En PLS leser inngangene, kjører programmet og skriver utgangene, om og om igjen, typisk hver 10 til 100 millisekund. Verdiene du får ut er øyeblikksbilder fra denne runden, ikke en sammenhengende måling. Skjer noe raskere enn syklusen, finnes det ikke i dataene i det hele tatt.
 
-**11. Tidsstempelet er som regel et spørretidspunkt.** Det forteller når SCADA-systemet spurte, ikke når det fysiske skjedde. Avhengig av spørrefrekvensen skiller de seg med sekunder.
+**11. Tidsstempelet sier når systemet spurte.** De fleste tidsstempler settes i det SCADA-systemet henter verdien, ikke i det målingen ble gjort. Hvor stor forskjellen er, avhenger av hvor ofte systemet spør. Ved sjelden spørring kan den bli flere sekunder.
 
-**12. Udokumentert skalering.** Råtall gjøres om til tekniske enheter av en skaleringsblokk inne i PLS-programmet. Faktorene ligger i stigelogikk skrevet av en innleid automatiker i 2014.
+**12. Skalering ingen har dokumentert.** Råverdien fra inngangskortet regnes om til grader eller bar av en skaleringsblokk i PLS-programmet. Faktorene ligger i logikken, gjerne skrevet av en innleid automatiker for mange år siden, og de står som regel ikke noe annet sted.
 
-**13. Siste kjente verdi ved feil.** Noen systemer holder på forrige verdi når kommunikasjonen ryker, i stedet for å flagge dataene som ugyldige. En frossen giver og en genuint stabil prosess ser helt like ut i tabellen din.
+**13. Siste kjente verdi ved kommunikasjonsfeil.** Noen systemer beholder forrige verdi når sambandet ryker, i stedet for å markere dataene som ugyldige. I databasen ser en død sensor da nøyaktig lik ut som en prosess som ligger helt stabilt.
 
 ## I SCADA og historikkdatabasen
 
-**14. Dødbånd.** Historikkdatabaser lagrer gjerne en ny verdi bare når den har endret seg mer enn en innstilt terskel. En flat strek i dataene kan bety "ingenting endret seg", eller den kan bety "vi sluttet å bry oss om å lagre".
+**14. Dødbånd.** En historikkdatabase lagrer ofte en ny verdi bare når den har endret seg mer enn en gitt terskel. Det betyr at en flat strek i dataene kan bety to forskjellige ting: at verdien virkelig lå stille, eller at den endret seg for lite til å bli lagret.
 
-**15. Spørring på tidspunkt lyver høflig.** Spør databasen om verdien 14:32:17, og du får siste lagrede verdi før det tidspunktet, kanskje fra 14:00. Ingenting i svaret forteller at tallet er 32 minutter gammelt.
+**15. Spørring på et tidspunkt gir deg siste lagrede verdi.** Spør du hva verdien var 14:32:17, får du den siste verdien som ble lagret før det tidspunktet. Den kan være fra 14:00. Svaret inneholder ingenting som forteller deg at tallet er en halvtime gammelt.
 
-**16. Tapsgivende komprimering.** Historikkdatabaser bruker algoritmer som svingdør for å lagre en kurve som noen få punkter. Det du leser tilbake er en rekonstruksjon, og den er med vilje ikke originalen.
+**16. Komprimering som mister detaljer.** Historikkdatabaser lagrer gjerne en kurve som noen få knekkpunkter i stedet for hver eneste måling. Det du leser tilbake er en tilnærming til den opprinnelige kurven, og det er med vilje.
 
-**17. Kvalitetsflagg som forsvinner.** OPC og de fleste historikkdatabaser bærer et kvalitets- eller statusfelt sammen med hver verdi: god, dårlig, usikker. En stor andel dataflyter henter verdikolonnen og dropper kvalitetskolonnen. Det er å kaste det ene feltet som forteller om du kan stole på det andre.
+**17. Kvalitetsflagget som blir borte underveis.** OPC og de fleste historikkdatabaser sender med et kvalitetsfelt for hver verdi: god, dårlig eller usikker. Mange dataflyter henter bare selve verdien og lar kvalitetsfeltet ligge igjen. Da har du kastet det ene feltet som forteller deg om du kan stole på tallet du beholdt.
 
-**18. Etterfylling skriver om historien.** Data som kommer for sent settes inn bak lesepunktet ditt. Alle aggregater du regnet ut før etterfyllingen er nå feil, og ingen sa fra.
+**18. Data som kommer for sent.** Verdier som ankommer etter at nyere data allerede er lagret, settes inn bakover i tidsserien. Har du regnet ut et snitt eller en sum for den perioden før dette skjedde, er resultatet nå feil. Ingenting varsler deg om at grunnlaget har endret seg.
 
 ## I din egen dataflyt
 
-**19. Bufring ved gjenoppkobling.** Når sambandet ryker: bufrer enheten ute i felt og sender alt i en byge når den kommer tilbake, eller dropper den hullet? Begge deler er forsvarlig. De ødelegger dataene på helt ulike måter, og du må vite hvilken du har.
+**19. Hva skjer når sambandet ryker.** Enheten ute i felt gjør ett av to: den mellomlagrer alt og sender det samlet når forbindelsen er tilbake, eller den lar hullet stå tomt. Begge deler er forsvarlige løsninger. Men de gir helt forskjellige feil i dataene, og du må vite hvilken av dem du har.
 
-**20. Lokal tid.** Industrielle systemer kjører ofte lokal tid. Norske anlegg betyr CET og CEST, så du arver en sesongavhengig timesforskyvning mot en dataflyt som forventer UTC.
+**20. Lokal tid mot UTC.** Industrielle systemer kjører ofte på lokal tid. I Norge betyr det at tidsstemplene ligger én time foran UTC om vinteren og to om sommeren, mens dataflyten din sannsynligvis forventer UTC hele året.
 
-**21. Klokken stilles to ganger i året.** Om høsten gjentar en time seg, så du får doble tidsstempler. Om våren forsvinner en time, så du får et hull som ikke er et driftsavbrudd. Begge deler knekker naive tidsserie-sammenstillinger, og begge skjer på en dato du kan planlegge for.
+**21. Sommertid.** Om høsten stilles klokken tilbake, og timen mellom 02 og 03 kommer to ganger. Du får to sett tidsstempler som ser helt like ut. Om våren hopper klokken over en time, og du får et hull som ikke er et driftsavbrudd. Begge deler ødelegger beregninger som antar at tiden går jevnt framover, og begge skjer på datoer du vet om lenge i forveien.
 
-**22. Resampling dikter opp data.** Fremoverfylling, interpolering eller sletting er tre ulike svar, og alle tre lager verdier som aldri ble målt. Fremoverfyller du en død giver, får du en nydelig stabil kurve som ikke betyr noe som helst.
+**22. Resampling lager verdier som aldri ble målt.** Skal du gjøre uregelmessige data om til faste intervaller, må du velge mellom å kopiere siste verdi framover, interpolere mellom to punkter, eller la hullet stå. Alle tre lager tall som ingen har målt. Kopierer du siste verdi framover fra en sensor som har sluttet å svare, får du en pen og helt stabil kurve som ikke betyr noen ting.
 
-**23. Enhetsomregning.** Bar mot psi, celsius mot fahrenheit, m³/h mot l/s. Som regel oppdager noen det. Når ingen gjør det, pleier det å bli dyrt.
+**23. Enheter.** Bar mot psi, celsius mot fahrenheit, kubikkmeter i timen mot liter i sekundet. Som regel oppdager noen det med en gang, fordi tallet blir absurd. Problemet er de gangene faktoren er liten nok til at resultatet fortsatt ser rimelig ut.
 
 ## Kortversjonen
 
-Tre vaner dekker det meste av dette:
+Tre vaner dekker det meste:
 
-**Ta vare på kvalitetsflagget.** Har ikke skjemaet ditt en kolonne for det, lag en. Det er den billigste datakvalitetsgevinsten som finnes, og nesten alle hopper over den.
+**Ta vare på kvalitetsflagget.** Mangler databasen din en kolonne for det, lag en. Det er den enkleste forbedringen på hele lista, og den som oftest blir hoppet over.
 
-**Valider endringsrate ved innlesing.** En rørtemperatur som går fra 70 °C til 500 °C på ett sekund er en feil, ikke en prosess. Fysiske systemer har fysiske grenser, så håndhev dem i døren.
+**Sjekk hvor fort verdien endrer seg.** En rørtemperatur som går fra 70 til 500 °C på ett sekund er en feil, ikke en prosess. Fysiske systemer har fysiske grenser, og de grensene bør ligge inne der dataene kommer inn.
 
-**Skriv ned usikkerheten.** Givertype, nøyaktighetsklasse, dødbåndsinnstilling, spørreintervall, alt sammen som metadata ved siden av dataene. Den som trenger det er deg selv, klokken to om natten, mens du prøver å finne ut om et avvik er ekte.
+**Skriv ned det du vet om usikkerheten.** Sensortype, nøyaktighetsklasse, dødbånd, hvor ofte systemet spør. Lagre det sammen med dataene. Den som får bruk for det er deg selv, klokken to om natten, når du skal avgjøre om et utslag er ekte eller ikke.
 
-Og en som ikke er teknisk: spør driftsoperatørene. De vet hvilken giver som leser litt høyt og hvilken som har vært upålitelig siden ombyggingen. Den kunnskapen står nesten aldri skrevet ned noe sted.
+Og én ting som ikke er teknisk: snakk med driftsoperatørene. De vet hvilken sensor som alltid leser litt høyt, og hvilken som ikke har vært til å stole på siden ombyggingen. Det står nesten aldri skrevet ned noe sted.
 
 ---
 
-Vil du ha resonnementet bak punktene og ikke bare lista, går [Kan du stole på sensordataene dine?](/no/posts/trust-your-sensor-data/) gjennom hele veien fra en varmeveksler til en skyapplikasjon, og [Hva 4-20 mA egentlig betyr](/no/posts/what-4-20ma-actually-means/) tar signalveien i detalj.
+Vil du ha resonnementet bak punktene og ikke bare lista, går [Kan du stole på sensordataene dine?](/no/posts/trust-your-sensor-data/) gjennom hele veien fra en varmeveksler til en skyapplikasjon, og [Hva 4-20 mA egentlig betyr](/no/posts/what-4-20ma-actually-means/) tar for seg signalveien i detalj.
 
 {{< newsletter >}}
