@@ -34,9 +34,12 @@ ShowCodeCopyButtons = true
 ShowWordCount = false
 
 [params.newsletter]
-# Fallback link, shown if formId is empty
+# Påmeldingslenken boksen faktisk bruker nå.
 subscribeUrl = "https://marius-newsletter-d94bcd.beehiiv.com/subscribe"
-# beehiiv v3 subscribe form ("Blog inline form")
+# UBRUKT fra 27.07. Det innebygde beehiiv-skjemaet er tatt ut fordi loaderen deres
+# aldri sender resize-meldingen, så skjemaet ble stående på 0 piksler for alle.
+# ID-en står igjen fordi den trengs den dagen skjemaet legges inn på nytt.
+# Se kommentaren i layouts/_partials/newsletter-signup.html.
 formId = "dd96c025-20fa-461d-b7f7-2cc6baaf2edf"
 
 [params.assets]

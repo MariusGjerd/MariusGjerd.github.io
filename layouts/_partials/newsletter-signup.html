@@ -1,46 +1,30 @@
+{{- /*
+  Nyhetsbrev-boks.
+
+  27.07: beehiivs innebygde skjema er tatt ut. Loaderen (subscribe-forms.beehiiv.com/v3/loader.js)
+  monterte iframen i en wrapper med height:0 og ventet på en resize-melding som aldri kom.
+  Iframen sendte "beehiiv:child-loaded" ni ganger uten å få svar, så skjemaet var usynlig for
+  alle besøkende siden 14.07. Feilen ligger i beehiivs eget script, ikke her.
+
+  Nå: en ren lenke til beehiivs egen påmeldingsside. Ingen tredjeparts JavaScript, ingenting
+  adblockere kan stoppe, og teksten er vår egen på begge språk.
+
+  Vil du ha skjemaet rett i boksen igjen, må temaet først ryddes i beehiiv-byggeren
+  (skru av tittel + undertittel, gjennomsiktig bakgrunn, null padding, fyll bredden).
+  API-et vårt kan bare skrive utkast, ikke publisere, så det må gjøres i UI-et.
+  CSS-en ligger i assets/css/extended/site.css.
+*/ -}}
 {{- $nl := site.Params.newsletter }}
 {{- if $nl }}
+{{- $no := eq .Language.Lang "no" }}
 <aside class="newsletter-box">
-  {{- if eq .Language.Lang "no" }}
+  {{- if $no }}
   <p class="newsletter-title"><strong>Få neste innlegg i innboksen</strong></p>
   <p class="newsletter-sub">Omtrent annenhver uke: én artikkel om hva som skjer når kode møter den virkelige verden. Ingen fyll.</p>
   {{- else }}
   <p class="newsletter-title"><strong>Get the next one in your inbox</strong></p>
   <p class="newsletter-sub">Roughly every two weeks: one piece about what happens when code touches the real world. No filler.</p>
   {{- end }}
-  {{- with $nl.formId }}
-  <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="{{ . }}"></script>
-  <a class="newsletter-btn newsletter-fallback" href="{{ $nl.subscribeUrl }}" rel="noopener" hidden>{{ if eq $.Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
-  <noscript><a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq $.Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a></noscript>
-  <script>
-    /* Adblockere (Privacy Badger, uBlock) stopper beehiiv-scriptet; vis knappen i stedet.
-       Ser etter iframen i stedet for å gjette på en fast tid: med to skjemaer på samme
-       side rakk ikke det andre å laste innen fristen, og da ble knappen stående ved
-       siden av et skjema som virket. Observeren rydder opp hvis iframen kommer sent. */
-    (function () {
-      var box = document.currentScript && document.currentScript.parentElement;
-      if (!box) return;
-      var btn = box.querySelector('.newsletter-fallback');
-      if (!btn) return;
-      /* Skjemaet teller som brukbart bare hvis det faktisk har høyde. beehiiv-embeden
-         kan ligge der med wrapper på 0px (slik den gjør i produksjon nå), og da er
-         den like ubrukelig for leseren som om den var blokkert. */
-      var usable = function () {
-        var f = box.querySelector('iframe');
-        if (!f) return false;
-        return f.getBoundingClientRect().height > 40 &&
-               f.parentElement.getBoundingClientRect().height > 40;
-      };
-      var obs = new MutationObserver(function () { if (usable()) btn.hidden = true; });
-      obs.observe(box, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'height'] });
-      setTimeout(function () { if (!usable()) btn.hidden = false; }, 4000);
-      setTimeout(function () { obs.disconnect(); }, 20000);
-    })();
-  </script>
-  {{- else }}
-  <a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq .Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
-  {{- end }}
+  <a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if $no }}Abonner{{ else }}Subscribe{{ end }}</a>
 </aside>
-{{- /* CSS-en ligger i assets/css/extended/site.css, ikke her: boksen kan stå flere
-       ganger på samme side (/checklist/), og da ble <style>-blokken duplisert. */ -}}
 {{- end }}

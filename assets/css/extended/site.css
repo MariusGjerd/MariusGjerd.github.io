@@ -102,3 +102,8 @@ body {
 /* display:inline-block over slår nettleserens [hidden]{display:none}, så
    adblocker-knappen ble stående ved siden av et skjema som virket. */
 .newsletter-btn[hidden] { display: none; }
+/* Boksen kan ligge inne i .post-content når den settes inn med {{< newsletter >}}-shortcoden
+   (som på /checklist/). Der vinner temaets lenkestil over .newsletter-btn, og knappen fikk
+   blå understreket tekst. Løft spesifisiteten så knappen ser lik ut begge steder. */
+.post-content a.newsletter-btn { color: var(--theme); text-decoration: none; }
+.post-content a.newsletter-btn:hover { color: var(--theme); text-decoration: none; opacity: .85; }
