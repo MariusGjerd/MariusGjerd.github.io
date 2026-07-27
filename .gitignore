@@ -3,3 +3,6 @@ resources/
 .hugo_build.lock
 .DS_Store
 private/
+# Python-artefakter fra å kjøre kodebonusen lokalt
+__pycache__/
+*.pyc

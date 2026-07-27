@@ -14,7 +14,7 @@ Hvert punkt her er en konkret måte tallet i databasen sluttet å stemme med den
 
 Jeg har gruppert dem etter hvor i kjeden de oppstår, for det er sånn du feilsøker dem. Jobb bakover fra databasen mot røret.
 
-**Lista er gratis. Det eneste jeg ber om e-post for, er sjekkene som kode.** Seksten av punktene er noe en maskin kan fange opp, og de ligger ferdig skrevet i `sensorcheck.py`: én fil, kun standardbiblioteket, ingenting å installere. Meld deg på, så ligger nedlastingslenken i velkomstmailen.
+**Seksten av punktene er noe en maskin kan fange opp**, og de ligger ferdig skrevet i [`sensorcheck.py`](/checklist/code/): én fil, kun standardbiblioteket, ingenting å installere, pluss en demo som skriver ut et døgn med anleggsdata der sammendraget ser helt fornuftig ut og dataene er fulle av hull. Gratis, ingen e-post.
 
 {{< newsletter >}}
 

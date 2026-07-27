@@ -3,20 +3,13 @@ title: "The 23 checks, as code"
 url: "/checklist/code/"
 date: 2026-07-27
 draft: false
-robotsNoIndex: true
-sitemap:
-  disable: true
-_build:
-  list: never
 description: "The sensor data checklist as a runnable Python module. Standard library only, one file, drop it into your ingestion path."
-summary: "The checklist as code you can run against your own data."
-ShowReadingTime: false
-ShowBreadCrumbs: false
+keywords: ["sensor data validation", "industrial data quality python", "time series validation", "OPC quality flags", "4-20mA validation", "data quality checks"]
+summary: "The checklist as code you can run against your own data. One file, standard library only."
+ShowBreadCrumbs: true
 ---
 
-Thanks for subscribing. Here it is.
-
-`sensorcheck.py` turns the checklist into something you can actually run against your own data. One file, standard library only, nothing to install. Copy it into your project.
+`sensorcheck.py` turns [the checklist](/checklist/) into something you can run against your own data. One file, standard library only, nothing to install. Copy it into your project and go.
 
 {{< downloads "Download sensorcheck.py|/code/sensorcheck.py" "Download the demo|/code/broken_plant_day.py" >}}
 
@@ -69,4 +62,6 @@ It also cannot see the physical layer. Calibration drift, a sensor in a dead zon
 
 ---
 
-If you find something wrong with it, or a check you think is missing, reply to any newsletter issue. I read everything, and this file will get better for it.
+If you find something wrong with it, or a check you think is missing, tell me. I read everything, and this file will get better for it.
+
+{{< newsletter >}}
