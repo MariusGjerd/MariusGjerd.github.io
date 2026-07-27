@@ -13,27 +13,34 @@
   <a class="newsletter-btn newsletter-fallback" href="{{ $nl.subscribeUrl }}" rel="noopener" hidden>{{ if eq $.Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
   <noscript><a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq $.Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a></noscript>
   <script>
-    /* Adblockere (Privacy Badger, uBlock) stopper beehiiv-scriptet; vis knappen i stedet */
+    /* Adblockere (Privacy Badger, uBlock) stopper beehiiv-scriptet; vis knappen i stedet.
+       Ser etter iframen i stedet for å gjette på en fast tid: med to skjemaer på samme
+       side rakk ikke det andre å laste innen fristen, og da ble knappen stående ved
+       siden av et skjema som virket. Observeren rydder opp hvis iframen kommer sent. */
     (function () {
       var box = document.currentScript && document.currentScript.parentElement;
-      setTimeout(function () {
-        box = box || document.querySelector('.newsletter-box');
-        if (box && !box.querySelector('iframe')) {
-          var btn = box.querySelector('.newsletter-fallback');
-          if (btn) btn.hidden = false;
-        }
-      }, 2500);
+      if (!box) return;
+      var btn = box.querySelector('.newsletter-fallback');
+      if (!btn) return;
+      /* Skjemaet teller som brukbart bare hvis det faktisk har høyde. beehiiv-embeden
+         kan ligge der med wrapper på 0px (slik den gjør i produksjon nå), og da er
+         den like ubrukelig for leseren som om den var blokkert. */
+      var usable = function () {
+        var f = box.querySelector('iframe');
+        if (!f) return false;
+        return f.getBoundingClientRect().height > 40 &&
+               f.parentElement.getBoundingClientRect().height > 40;
+      };
+      var obs = new MutationObserver(function () { if (usable()) btn.hidden = true; });
+      obs.observe(box, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'height'] });
+      setTimeout(function () { if (!usable()) btn.hidden = false; }, 4000);
+      setTimeout(function () { obs.disconnect(); }, 20000);
     })();
   </script>
   {{- else }}
   <a class="newsletter-btn" href="{{ $nl.subscribeUrl }}" rel="noopener">{{ if eq .Language.Lang "no" }}Abonner{{ else }}Subscribe{{ end }}</a>
   {{- end }}
 </aside>
-<style>
-.newsletter-box{margin:2.5rem 0 0;padding:1.2rem 1.4rem;border:1px solid var(--border);border-radius:var(--radius)}
-.newsletter-box .newsletter-title{margin:0 0 .3rem;font-size:1rem}
-.newsletter-box .newsletter-sub{margin:0 0 .8rem;font-size:.95rem;line-height:1.6;color:var(--secondary)}
-.newsletter-btn{display:inline-block;padding:.5rem 1.1rem;border-radius:var(--radius);background:var(--primary);color:var(--theme);font-size:.95rem;font-weight:500}
-.newsletter-btn:hover{opacity:.85}
-</style>
+{{- /* CSS-en ligger i assets/css/extended/site.css, ikke her: boksen kan stå flere
+       ganger på samme side (/checklist/), og da ble <style>-blokken duplisert. */ -}}
 {{- end }}

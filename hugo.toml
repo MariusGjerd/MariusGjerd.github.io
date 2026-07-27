@@ -89,10 +89,22 @@ tag = "tags"
 category = "categories"
 
 [[languages.en.menu.main]]
+identifier = "checklist"
+name = "Checklist"
+url = "/checklist/"
+weight = 10
+
+[[languages.en.menu.main]]
 identifier = "about"
 name = "About"
 url = "/about/"
 weight = 20
+
+[[languages.no.menu.main]]
+identifier = "checklist"
+name = "Sjekkliste"
+url = "/no/checklist/"
+weight = 10
 
 [[languages.no.menu.main]]
 identifier = "about"
