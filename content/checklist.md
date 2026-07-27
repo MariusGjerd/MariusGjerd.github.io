@@ -14,6 +14,8 @@ Every item here is a specific way the number in your database stopped matching t
 
 I've grouped them by where in the chain they happen, because that's how you debug them. Work backwards from your database toward the pipe.
 
+**The list is free. The checks as code are the one thing I ask for an email for.** Sixteen of these are things a machine can catch, and I've written them up as `sensorcheck.py`: one file, standard library only, nothing to install, drop it into your ingestion path. Subscribe and the download link is in the welcome email.
+
 {{< newsletter >}}
 
 ## At the sensor

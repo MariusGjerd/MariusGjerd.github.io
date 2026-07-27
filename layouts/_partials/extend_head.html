@@ -4,3 +4,9 @@
 <script data-goatcounter="https://{{ site.Params.goatcounter }}.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 {{- end }}
+{{- /* Uoppført side (bonusen bak nyhetsbrevet): hold den ute av søk.
+     Settes med `unlisted: true` i frontmatter. Sitemap og lister styres
+     separat med _build/sitemap i samme frontmatter. */ -}}
+{{- if .Params.unlisted }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}

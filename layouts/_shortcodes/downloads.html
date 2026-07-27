@@ -1,0 +1,15 @@
+{{- /* Nedlastingsknapper på rad. Rå HTML i markdown blir strippet av goldmark
+       (unsafe er av), så filnedlastinger må gå gjennom en shortcode.
+
+       Bruk: {{< downloads "Last ned sensorcheck.py|/code/sensorcheck.py" "Last ned demoen|/code/broken_plant_day.py" >}}
+       Hver parameter er "etikett|sti". CSS ligger i assets/css/extended/site.css. */ -}}
+<div class="dl-row">
+  {{- range .Params }}
+  {{- $parts := split . "|" }}
+  {{- if eq (len $parts) 2 }}
+  <a class="newsletter-btn" href="{{ index $parts 1 }}" download>{{ index $parts 0 }}</a>
+  {{- else }}
+  {{- errorf "downloads-shortcode: forventet \"etikett|sti\", fikk %q (%s)" . $.Position }}
+  {{- end }}
+  {{- end }}
+</div>

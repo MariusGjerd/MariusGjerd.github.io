@@ -107,3 +107,6 @@ body {
    blå understreket tekst. Løft spesifisiteten så knappen ser lik ut begge steder. */
 .post-content a.newsletter-btn { color: var(--theme); text-decoration: none; }
 .post-content a.newsletter-btn:hover { color: var(--theme); text-decoration: none; opacity: .85; }
+
+/* Nedlastingsrad ({{< downloads >}}-shortcoden på den uoppførte kodesiden). */
+.dl-row { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0 2rem; }
