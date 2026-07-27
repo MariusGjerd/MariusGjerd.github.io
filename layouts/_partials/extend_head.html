@@ -4,9 +4,8 @@
 <script data-goatcounter="https://{{ site.Params.goatcounter }}.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 {{- end }}
-{{- /* Uoppført side (bonusen bak nyhetsbrevet): hold den ute av søk.
-     Settes med `unlisted: true` i frontmatter. Sitemap og lister styres
-     separat med _build/sitemap i samme frontmatter. */ -}}
-{{- if .Params.unlisted }}
-<meta name="robots" content="noindex, nofollow">
-{{- end }}
+{{- /* Uoppførte sider (bonusen bak nyhetsbrevet) bruker PaperMods egen
+     `robotsNoIndex: true` i frontmatter, ikke en egen meta herfra. Vi hadde
+     en her først, og resultatet var to motstridende robots-tagger i
+     produksjon: temaets "index, follow" og vår "noindex, nofollow".
+     Sitemap og lister styres separat med sitemap/_build i frontmatter. */ -}}

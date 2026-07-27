@@ -3,7 +3,7 @@ title: "The 23 checks, as code"
 url: "/checklist/code/"
 date: 2026-07-27
 draft: false
-unlisted: true
+robotsNoIndex: true
 sitemap:
   disable: true
 _build:
