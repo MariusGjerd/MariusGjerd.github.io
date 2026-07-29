@@ -5,7 +5,7 @@ draft: false
 description: "A checklist for anyone building software on top of industrial sensor data. 23 specific ways the number in your database stopped matching the physical world, and what to check for each one."
 keywords: ["sensor data quality", "industrial data validation", "SCADA data quality", "historian deadband", "IIoT data pipeline", "OPC quality flags", "time series data quality", "OT data engineering"]
 summary: "Every one of these has produced a real incident somewhere. Most of them are invisible from the database side."
-images: ["/og/trust-your-sensor-data.png"]
+images: ["/og/checklist.png"]
 ---
 
 If you write software that consumes industrial sensor data, this list is for you.
@@ -14,23 +14,23 @@ Every item here is a specific way the number in your database can stop matching 
 
 The items are ordered by where in the chain the fault happens, starting at the sensor and working inward. That's also the order to debug in, just backwards.
 
-**Sixteen of these are things a machine can check for you**, and they're written up as [`sensorcheck.py`](/checklist/code/): one file, standard library only, nothing to install. It comes with a demo that builds a day of plant data where the summary looks completely normal, then finds eleven problems in that same data. Free, no email.
+**16 of these are things a machine can check for you**, and they're written up as [`sensorcheck.py`](/checklist/code/): one file, standard library only, nothing to install. It comes with a demo that builds a day of plant data where the summary looks completely normal, then finds 11 problems in that same data. Free, no email.
 
 {{< newsletter >}}
 
-## At the sensor
+## The sensor
 
 **1. Tolerance class.** A sensor is inaccurate from the start. A PT100 in class B has a tolerance of ±0.3°C at 0°C, widening to ±1.3°C at 300°C. If your alert threshold is tighter than that, the alert fires on measurement uncertainty rather than on the process.
 
 **2. Calibration drift.** Sensors change slowly over years, and nothing tells you it's happening. Find out when each sensor was last calibrated. If nobody knows, that is itself an answer about how much you can trust the number.
 
-**3. Where the sensor sits.** Placement decides what a sensor actually measures. A temperature sensor in a pocket with no flow past it, or with air around it instead of liquid, measures the temperature exactly where it sits. That can be several degrees away from the temperature in the process itself. The sensor isn't doing anything wrong. It's answering a different question from the one you think you asked.
+**3. Where the sensor sits.** Placement decides what a sensor actually measures. A temperature sensor in a dead leg with no flow past it, or with air around it instead of liquid, measures the temperature exactly where it sits. That can be several degrees away from the temperature in the process you're trying to measure. The sensor isn't doing anything wrong. It's answering a different question from the one you think you asked.
 
 **4. Response time.** Temperature sensors usually sit inside a thermowell, a closed protective tube that reaches into the pipe or tank. The well itself has to heat up or cool down before the sensor inside notices anything changed. When the process moves quickly, the reading lags behind, from a few seconds to around half a minute. The value you read as "now" describes something that happened slightly earlier.
 
 **5. Cabinet temperature.** The transmitter, the electronics that turn the sensor signal into a 4-20mA current, normally sits in a cabinet. When that cabinet warms up in summer, the measurement shifts slightly. The datasheet states how much per degree, as a temperature coefficient. The effect is rarely large, but it's a systematic error that follows the seasons, and it is impossible to see from the database.
 
-## In the signal path
+## The signal
 
 **6. The range is configured wrong.** The transmitter is set up for 0-200°C. Three years ago the process changed to 0-150°C, but nobody reconfigured the transmitter. Every reading since has been scaled wrong by the same factor. The numbers still look entirely reasonable, which is why nobody has noticed.
 
@@ -40,7 +40,7 @@ The items are ordered by where in the chain the fault happens, starting at the s
 
 **9. Live zero.** In 4-20mA, 4mA is the bottom of the range. 0mA means the loop is broken: a cut cable or a dead transmitter. If your code accepts 0 as a valid measurement, you're storing faults as though they were real data. This is a common mistake and a hard one to spot, because zero is usually a physically plausible value.
 
-## At the PLC
+## The PLC
 
 **10. The scan cycle.** A PLC reads its inputs, runs the program and writes its outputs, over and over, typically every 10 to 100 milliseconds. The values you get out are snapshots from that loop, not a continuous measurement. Anything faster than the cycle doesn't exist in your data at all.
 
@@ -50,7 +50,7 @@ The items are ordered by where in the chain the fault happens, starting at the s
 
 **13. Last known value on a comms failure.** Some systems keep the previous value when the link drops instead of marking the data invalid. In the database, a dead sensor then looks exactly like a process sitting perfectly stable.
 
-## At the SCADA system and historian
+## The SCADA system and historian
 
 **14. Deadband.** A historian often stores a new value only when it has moved more than a set threshold. That means a flat line in your data can mean two different things: the value really did sit still, or it changed too little to be recorded.
 

@@ -1,0 +1,57 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+    </pattern>
+    <pattern id="gridBig" width="150" height="150" patternUnits="userSpaceOnUse">
+      <path d="M 150 0 L 0 0 0 150" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#fbfbf9"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#gridBig)"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#2f6fdd"/>
+  <path d="M 40 62 L 40 40 L 62 40" fill="none" stroke="#2f6fdd" stroke-width="3"/>
+  <path d="M 1160 568 L 1160 590 L 1138 590" fill="none" stroke="#2f6fdd" stroke-width="3"/>
+
+  <text x="80" y="88" font-family="Menlo, monospace" font-size="22" letter-spacing="3" fill="#2f6fdd">IT/OT FIELD NOTES</text>
+  <text x="1120" y="88" text-anchor="end" font-family="Menlo, monospace" font-size="22" letter-spacing="3" fill="#6a6d6f">SJEKKLISTE</text>
+
+  <text x="78" y="238" font-family="Helvetica, Arial, sans-serif" font-size="76" font-weight="800" fill="#1a1a1b">23 TING SOM STILLE</text>
+  <text x="78" y="324" font-family="Helvetica, Arial, sans-serif" font-size="76" font-weight="800" fill="#1a1a1b">&#216;DELEGGER SENSORDATA</text>
+  <text x="82" y="386" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#6a6d6f">Ingen av dem kaster en feilmelding</text>
+
+  <!-- 23 unticked checkboxes: the list itself as the motif -->
+  <g fill="none" stroke="#2f6fdd" stroke-width="1.5">
+    <rect x="80.0" y="466" width="34" height="34"/>
+    <rect x="125.7" y="466" width="34" height="34"/>
+    <rect x="171.4" y="466" width="34" height="34"/>
+    <rect x="217.1" y="466" width="34" height="34"/>
+    <rect x="262.8" y="466" width="34" height="34"/>
+    <rect x="308.5" y="466" width="34" height="34"/>
+    <rect x="354.2" y="466" width="34" height="34"/>
+    <rect x="399.9" y="466" width="34" height="34"/>
+    <rect x="445.6" y="466" width="34" height="34"/>
+    <rect x="491.3" y="466" width="34" height="34"/>
+    <rect x="537.0" y="466" width="34" height="34"/>
+    <rect x="582.7" y="466" width="34" height="34"/>
+    <rect x="628.4" y="466" width="34" height="34"/>
+    <rect x="674.1" y="466" width="34" height="34"/>
+    <rect x="719.8" y="466" width="34" height="34"/>
+    <rect x="765.5" y="466" width="34" height="34"/>
+    <rect x="811.2" y="466" width="34" height="34"/>
+    <rect x="856.9" y="466" width="34" height="34"/>
+    <rect x="902.6" y="466" width="34" height="34"/>
+    <rect x="948.3" y="466" width="34" height="34"/>
+    <rect x="994.0" y="466" width="34" height="34"/>
+    <rect x="1039.7" y="466" width="34" height="34"/>
+    <rect x="1085.4" y="466" width="34" height="34"/>
+  </g>
+  <text x="80" y="530" font-family="Menlo, monospace" font-size="18" fill="#6a6d6f">01</text>
+  <text x="1119.4" y="530" text-anchor="end" font-family="Menlo, monospace" font-size="18" fill="#6a6d6f">23</text>
+  <text x="600" y="530" text-anchor="middle" font-family="Menlo, monospace" font-size="18" letter-spacing="2" fill="#1a1a1b">16 AV DEM KAN EN MASKIN SJEKKE FOR DEG</text>
+
+  <text x="80" y="592" font-family="Menlo, monospace" font-size="21" letter-spacing="1" fill="#1a1a1b">MARIUS GJERD &#183; MARIUSGJERD.GITHUB.IO</text>
+  <text x="1120" y="592" text-anchor="end" font-family="Menlo, monospace" font-size="21" letter-spacing="1" fill="#6a6d6f">BERGEN 60.39&#176;N</text>
+</svg>

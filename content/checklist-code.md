@@ -6,6 +6,7 @@ draft: false
 description: "The sensor data checklist as a runnable Python module. Standard library only, one file, drop it into your ingestion path."
 keywords: ["sensor data validation", "industrial data quality python", "time series validation", "OPC quality flags", "4-20mA validation", "data quality checks"]
 summary: "The checklist as code you can run against your own data. One file, standard library only."
+images: ["/og/checklist-code.png"]
 ShowBreadCrumbs: true
 ---
 
