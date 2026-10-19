@@ -1,3 +1,5 @@
+{{- /* KaTeX lastes her, ikke fra footer: PaperMod cacher footer.html uten side i nøkkelen. */ -}}
+{{- partial "katex.html" (dict "page" . "force" false) }}
 {{- if eq .Section "posts" }}
 {{- partial "newsletter-signup.html" . }}
 <aside class="author-box">

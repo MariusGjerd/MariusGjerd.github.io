@@ -1,0 +1,16 @@
+{{- /* Kortrutenett. Kontekst: liste med lab-sider. */ -}}
+<div class="lab-cards">
+  {{- range . }}
+  {{- $thumb := .Resources.Get (.Params.thumb | default "thumb.svg") }}
+  <a class="lab-card" href="{{ .RelPermalink }}">
+    {{- with $thumb }}<img src="{{ .RelPermalink }}" alt="" width="400" height="180" loading="lazy">{{ end }}
+    <h2>{{ .Title }}</h2>
+    <p>{{ .Description }}</p>
+    {{- with .Params.subjects }}
+    <span class="lab-chips">
+      {{- range . }}<span class="lab-chip">{{ i18n (printf "lab.subject.%s" .) | default . }}</span>{{ end }}
+    </span>
+    {{- end }}
+  </a>
+  {{- end }}
+</div>

@@ -1,0 +1,7 @@
+{{- /* Tar en HTML-streng, returnerer den uten lab-widget-markup: komplette
+     widgets blir miniatyr med lenke, og et avkuttet widget (autosammendrag)
+     fjernes til slutten av strengen. */ -}}
+{{- $s := . | string -}}
+{{- $s = $s | replaceRE `(?s)<div class="lab-widget"[^>]*data-href="([^"]*)"[^>]*data-thumb="([^"]*)"[^>]*data-title="([^"]*)".*?<!--/lab-widget-->` `<p><a href="$1"><img src="$2" alt="$3"></a></p>` -}}
+{{- $s = $s | replaceRE `(?s)<div class="lab-widget".*$` `` -}}
+{{- return $s -}}

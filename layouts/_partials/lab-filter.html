@@ -1,0 +1,10 @@
+{{- /* Fag-filter. Kontekst: dict "active" <term-navn eller tom>. */ -}}
+{{- $labHome := site.GetPage "/lab" -}}
+{{- with site.Taxonomies.subjects }}
+<nav class="lab-filter" aria-label="{{ i18n "lab.title" }}">
+  <a href="{{ $labHome.RelPermalink }}"{{ if not $.active }} aria-current="page"{{ end }}>{{ i18n "lab.allSubjects" }}</a>
+  {{- range .Alphabetical }}
+  <a href="{{ .Page.RelPermalink }}"{{ if eq $.active .Page.Data.Term }} aria-current="page"{{ end }}>{{ i18n (printf "lab.subject.%s" .Page.Data.Term) | default .Page.Title }}</a>
+  {{- end }}
+</nav>
+{{- end }}

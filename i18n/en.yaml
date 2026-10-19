@@ -1,0 +1,64 @@
+lab.title:
+  other: "Lab"
+lab.intro:
+  other: "Interactive illustrations of the concepts I write about. Drag, click, break things."
+lab.open:
+  other: "Open in Lab"
+lab.formulasUsed:
+  other: "Formulas used"
+lab.derivedFrom:
+  other: "derived from"
+lab.and:
+  other: "and"
+lab.usedIn:
+  other: "Used in"
+lab.allSubjects:
+  other: "All"
+lab.subject.elektroteknikk-dc:
+  other: "Electrical engineering DC"
+lab.subject.digitalteknikk:
+  other: "Digital engineering"
+lab.sideLabel:
+  other: "p."
+lab.wheatstone-pt100.circuitLabel:
+  other: "Wheatstone bridge on 3.3 V. Left side: R1 2.2 kΩ over R2 100 Ω, midpoint A. Right side: R3 2.2 kΩ over the PT100 sensor, midpoint B. The output voltage is measured between A and B."
+lab.wheatstone-pt100.temperature:
+  other: "Temperature"
+lab.wheatstone-pt100.load:
+  other: "What is connected to the output"
+lab.wheatstone-pt100.load.dmm:
+  other: "10 MΩ (multimeter)"
+lab.wheatstone-pt100.load.ads1115:
+  other: "710 kΩ (ADS1115)"
+lab.wheatstone-pt100.load.r1k:
+  other: "1 kΩ"
+lab.wheatstone-pt100.rpt:
+  other: "PT100 resistance"
+lab.wheatstone-pt100.vout:
+  other: "Output voltage U_out"
+lab.wheatstone-pt100.openCircuit:
+  other: "With nothing connected:"
+lab.wheatstone-pt100.current:
+  other: "Current through the sensor"
+lab.wheatstone-pt100.adc10:
+  other: "Arduino, 10-bit ADC"
+lab.wheatstone-pt100.adc10Note:
+  other: "5 V reference, 4.9 mV per step"
+lab.wheatstone-pt100.belowZero:
+  other: "Below 0 V. This input only reads positive voltage, so it shows 0."
+lab.wheatstone-pt100.ads1115:
+  other: "ADS1115, 16-bit"
+lab.wheatstone-pt100.ads1115Note:
+  other: "±0.256 V range, 7.8 µV per step"
+lab.wheatstone-pt100.plotX:
+  other: "Temperature (°C)"
+lab.wheatstone-pt100.plotY:
+  other: "U_out (mV)"
+lab.wheatstone-pt100.plotRef:
+  other: "Straight line from 0 °C"
+lab.wheatstone-pt100.formulasTitle:
+  other: "Formulas"
+lab.wheatstone-pt100.summaryTitle:
+  other: "In short"
+lab.wheatstone-pt100.summaryBody:
+  other: "<p>The bridge is two voltage dividers side by side. At 0 °C both midpoints sit at the same voltage, so the output is 0. When the sensor heats up, its resistance grows and the right midpoint rises. That small difference is the signal: about 52 mV at 100 °C.</p><p>A plain Arduino input sees only about 11 steps of it and nothing below 0 V. The ADS1115 measures between A and B, so it sees thousands of steps in both directions.</p>"

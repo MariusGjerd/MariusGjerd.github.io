@@ -1,0 +1,7 @@
+{{- define "main" }}
+<header class="page-header">
+  <h1>{{ i18n "lab.title" }}</h1>
+</header>
+{{ partial "lab-filter.html" (dict "active" "") }}
+{{ partial "lab-cards.html" (where site.RegularPages "Section" "lab") }}
+{{- end }}

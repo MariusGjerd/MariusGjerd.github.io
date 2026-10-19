@@ -36,9 +36,9 @@
       {{- range .Params.tags }}
       <category>{{ replace (lower .) "-" "" }}</category>
       {{- end }}
-      <description>{{ .Summary | html }}</description>
+      <description>{{ partial "rss-strip-lab.html" .Summary | html }}</description>
       {{- $footer := printf "<hr><p><em>Originally published at <a href=\"%s\">mariusgjerd.github.io</a>, where I write about what happens when code touches the real world. New posts also go out by email: <a href=\"https://marius-newsletter-d94bcd.beehiiv.com/\">subscribe here</a>.</em></p>" .Permalink }}
-      <content:encoded>{{ printf "<![CDATA[%s%s]]>" .Content $footer | safeHTML }}</content:encoded>
+      <content:encoded>{{ $content := partial "rss-strip-lab.html" .Content }}{{ printf "<![CDATA[%s%s]]>" $content $footer | safeHTML }}</content:encoded>
     </item>
     {{- end }}
   </channel>

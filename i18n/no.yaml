@@ -1,0 +1,64 @@
+lab.title:
+  other: "Lab"
+lab.intro:
+  other: "Interaktive illustrasjoner av konseptene jeg skriver om. Dra, klikk, bryt ting."
+lab.open:
+  other: "Åpne i Lab"
+lab.formulasUsed:
+  other: "Formler brukt"
+lab.derivedFrom:
+  other: "utledet fra"
+lab.and:
+  other: "og"
+lab.usedIn:
+  other: "Brukt i"
+lab.allSubjects:
+  other: "Alle"
+lab.subject.elektroteknikk-dc:
+  other: "Elektroteknikk DC"
+lab.subject.digitalteknikk:
+  other: "Digitalteknikk"
+lab.sideLabel:
+  other: "s."
+lab.wheatstone-pt100.circuitLabel:
+  other: "Wheatstone-bro på 3,3 V. Til venstre sitter R1 på 2,2 kΩ over R2 på 100 Ω, med midtpunkt A. Til høyre sitter R3 på 2,2 kΩ over PT100-sensoren, med midtpunkt B. Utgangsspenningen måles mellom A og B."
+lab.wheatstone-pt100.temperature:
+  other: "Temperatur"
+lab.wheatstone-pt100.load:
+  other: "Koblet på utgangen"
+lab.wheatstone-pt100.load.dmm:
+  other: "10 MΩ (multimeter)"
+lab.wheatstone-pt100.load.ads1115:
+  other: "710 kΩ (ADS1115)"
+lab.wheatstone-pt100.load.r1k:
+  other: "1 kΩ"
+lab.wheatstone-pt100.rpt:
+  other: "Motstand i PT100"
+lab.wheatstone-pt100.vout:
+  other: "Utgangsspenning U_ut"
+lab.wheatstone-pt100.openCircuit:
+  other: "Uten last:"
+lab.wheatstone-pt100.current:
+  other: "Strøm gjennom sensoren"
+lab.wheatstone-pt100.adc10:
+  other: "Arduino, 10-biters ADC"
+lab.wheatstone-pt100.adc10Note:
+  other: "5 V-referanse, 4,9 mV per trinn"
+lab.wheatstone-pt100.belowZero:
+  other: "Under 0 V. Inngangen kan bare lese positiv spenning, så den står på 0."
+lab.wheatstone-pt100.ads1115:
+  other: "ADS1115, 16-biters"
+lab.wheatstone-pt100.ads1115Note:
+  other: "Område ±0,256 V, 7,8 µV per trinn"
+lab.wheatstone-pt100.plotX:
+  other: "Temperatur (°C)"
+lab.wheatstone-pt100.plotY:
+  other: "U_ut (mV)"
+lab.wheatstone-pt100.plotRef:
+  other: "Rett linje fra 0 °C"
+lab.wheatstone-pt100.formulasTitle:
+  other: "Formler"
+lab.wheatstone-pt100.summaryTitle:
+  other: "Kort sagt"
+lab.wheatstone-pt100.summaryBody:
+  other: "<p>Broen består av to spenningsdelere. Ved 0 °C ligger A og B på samme spenning, og broen gir 0 V ut. Blir sensoren varmere, øker motstanden, og B kryper oppover. Forskjellen mellom A og B er signalet. Ved 100 °C er den rundt 52 mV.</p><p>Analoginngangen på en Arduino får bare rundt 11 trinn ut av dette, og ingenting under 0 V. ADS1115 måler mellom A og B og får flere tusen trinn, både over og under null.</p>"

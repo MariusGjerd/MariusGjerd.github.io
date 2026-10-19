@@ -1,0 +1,13 @@
+{{- /* Navnene til fra-ID-ene til en avledet formel, på sidens språk (liten
+     forbokstav, bortsett fra Ohm). Ukjent ID feiler bygget.
+     Kontekst: dict "f" <formel> "db" <formeldb> "id" <id> "lang" <språk> */ -}}
+{{- $db := .db -}}
+{{- $names := slice -}}
+{{- range .f.fra -}}
+  {{- $r := index $db.formler . -}}
+  {{- if not $r -}}{{- errorf "formel: ukjent formel-ID %q i fra-listen til %q" . $.id -}}{{- end -}}
+  {{- $n := index $r.navn $.lang -}}
+  {{- if not (hasPrefix $n "Ohm") }}{{ $n = lower $n }}{{ end -}}
+  {{- $names = $names | append $n -}}
+{{- end -}}
+{{- return $names -}}

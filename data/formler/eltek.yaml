@@ -1,0 +1,129 @@
+# Formeldatabase for Elektroteknikk DC. ID-er endres aldri etter publisering.
+# `tekst` er Unicode (widgets, RSS). `uttrykk` er LaTeX (KaTeX i innlegg).
+# `tekst` kan være en streng eller et map { no: "...", en: "..." } når teksten er
+# språkavhengig (ren symbolbruk trenger bare en streng).
+# Magnetisme og vekselstrøm er utsatt.
+kilde:
+  navn: "Formelark Eltek LVF 2026"
+  fag: "Elektroteknikk DC, Fagskulen Vestland"
+formler:
+  # Likestrøm
+  virkningsgrad:
+    navn: { no: "Virkningsgrad", en: "Efficiency" }
+    uttrykk: "\\eta = \\frac{P_a}{P_t} = \\frac{R_b}{R_b + R_i}"
+    tekst: "η = P_a / P_t = R_b / (R_b + R_i)"
+    side: 1
+  strom:
+    navn: { no: "Strøm", en: "Current" }
+    uttrykk: "I = \\frac{Q}{t}"
+    tekst: "I = Q / t"
+    side: 1
+  ohm:
+    navn: { no: "Ohms lov", en: "Ohm's law" }
+    uttrykk: "U = R \\cdot I"
+    tekst: "U = R · I"
+    side: 1
+  resistivitet:
+    navn: { no: "Resistans i leder", en: "Resistance of a conductor" }
+    uttrykk: "R = \\rho \\cdot \\frac{l}{A}"
+    tekst: "R = ρ · l / A"
+    side: 1
+  temp-resistans:
+    navn: { no: "Resistans og temperatur", en: "Resistance and temperature" }
+    uttrykk: "R_2 = R_1 \\cdot [1 + \\alpha (t_2 - t_1)]"
+    tekst: "R₂ = R₁ · [1 + α(t₂ − t₁)]"
+    side: 1
+    symboler:
+      R_1: { no: "resistans ved t₁", en: "resistance at t₁", enhet: "Ω" }
+      alpha: { no: "temperaturkoeffisient", en: "temperature coefficient", enhet: "1/°C" }
+  effekt:
+    navn: { no: "Effekt", en: "Power" }
+    uttrykk: "P = U \\cdot I = I^2 \\cdot R"
+    tekst: "P = U · I = I² · R"
+    side: 1
+  serie-r:
+    navn: { no: "Seriekobling av resistanser", en: "Resistors in series" }
+    uttrykk: "R_{tot} = \\sum R"
+    tekst: "R_tot = ΣR"
+    side: 1
+  parallell-r:
+    navn: { no: "Parallellkobling av resistanser", en: "Resistors in parallel" }
+    uttrykk: "\\frac{1}{R_{tot}} = \\sum \\frac{1}{R}"
+    tekst: "1/R_tot = Σ 1/R"
+    side: 1
+  stromdeling:
+    navn: { no: "Strømdeling", en: "Current divider" }
+    uttrykk: "I_1 = I \\cdot \\frac{R_2}{R_1 + R_2}, \\quad I_2 = I \\cdot \\frac{R_1}{R_1 + R_2}"
+    tekst: "I₁ = I · R₂ / (R₁ + R₂), I₂ = I · R₁ / (R₁ + R₂)"
+    side: 1
+  # Elektrisk felt og kapasitans
+  kapasitans:
+    navn: { no: "Kapasitans", en: "Capacitance" }
+    uttrykk: "C = \\frac{Q}{U} = \\frac{\\varepsilon \\cdot A}{l}"
+    tekst: "C = Q / U = ε · A / l"
+    side: 1
+  serie-c:
+    navn: { no: "Seriekobling av kondensatorer", en: "Capacitors in series" }
+    uttrykk: "\\frac{1}{C_{tot}} = \\sum \\frac{1}{C}"
+    tekst: "1/C_tot = Σ 1/C"
+    side: 1
+  parallell-c:
+    navn: { no: "Parallellkobling av kondensatorer", en: "Capacitors in parallel" }
+    uttrykk: "C_{tot} = \\sum C"
+    tekst: "C_tot = ΣC"
+    side: 1
+  tau-rc:
+    navn: { no: "Tidskonstant, RC", en: "Time constant, RC" }
+    uttrykk: "\\tau = R \\cdot C"
+    tekst: "τ = R · C"
+    side: 1
+  rc-lading:
+    navn: { no: "Lading av kondensator", en: "Charging a capacitor" }
+    uttrykk: "i = I \\cdot e^{-t/\\tau}, \\quad u_C = U \\cdot (1 - e^{-t/\\tau})"
+    tekst: "i = I · e^(−t/τ), u_C = U · (1 − e^(−t/τ))"
+    side: 1
+  rc-utlading:
+    navn: { no: "Utlading av kondensator", en: "Discharging a capacitor" }
+    uttrykk: "i = -I \\cdot e^{-t/\\tau}, \\quad u_C = U \\cdot e^{-t/\\tau}"
+    tekst: "i = −I · e^(−t/τ), u_C = U · e^(−t/τ)"
+    side: 1
+  energi-c:
+    navn: { no: "Energi i kondensator", en: "Energy in a capacitor" }
+    uttrykk: "W = \\frac{1}{2} Q U = \\frac{1}{2} C U^2"
+    tekst: "W = ½ · Q · U = ½ · C · U²"
+    side: 1
+  # Induktans (RL)
+  rl-innkobling:
+    navn: { no: "Innkobling av spole", en: "Switching on an inductor" }
+    uttrykk: "i(t) = I_0 \\cdot (1 - e^{-t/\\tau}), \\quad u(t) = U_0 \\cdot e^{-t/\\tau}"
+    tekst: "i(t) = I₀ · (1 − e^(−t/τ)), u(t) = U₀ · e^(−t/τ)"
+    side: 1
+  tau-rl:
+    navn: { no: "Tidskonstant, RL", en: "Time constant, RL" }
+    uttrykk: "\\tau = \\frac{L}{R}"
+    tekst: "τ = L / R"
+    side: 1
+  rl-utkobling:
+    navn: { no: "Utkobling av spole", en: "Switching off an inductor" }
+    uttrykk: "i(t) = I_0 \\cdot e^{-t/\\tau}, \\quad u(t) = -U_0 \\cdot e^{-t/\\tau}"
+    tekst: "i(t) = I₀ · e^(−t/τ), u(t) = −U₀ · e^(−t/τ)"
+    side: 1
+  energi-l:
+    navn: { no: "Spenning og energi i spole", en: "Inductor voltage and energy" }
+    uttrykk: "u = L \\cdot \\frac{di}{dt}, \\quad W = \\frac{1}{2} L I^2"
+    tekst: "u = L · di/dt, W = ½ · L · I²"
+    side: 1
+  # Utledninger (ikke på arket)
+  spenningsdeler:
+    navn: { no: "Spenningsdeler", en: "Voltage divider" }
+    uttrykk: "U_2 = U \\cdot \\frac{R_2}{R_1 + R_2}"
+    tekst: "U₂ = U · R₂ / (R₁ + R₂)"
+    avledet: true
+    fra: [ohm, serie-r]
+  thevenin:
+    navn: { no: "Theveninekvivalent", en: "Thevenin equivalent" }
+    tekst:
+      no: "Uₜₕ = spenningen uten last, Rₜₕ = R sett fra klemmene med kildene kortsluttet"
+      en: "Uₜₕ = voltage with no load, Rₜₕ = R seen from the terminals with sources shorted"
+    avledet: true
+    fra: [ohm, serie-r, parallell-r]

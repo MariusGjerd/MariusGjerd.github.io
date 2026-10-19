@@ -1,0 +1,46 @@
+{{- /* Rendrer en lab-widget. Kontekst: dict "page" <lab-side> "ctx" <siden som rendres>.
+     Frontmatter på lab-siden: formelfag (standard "eltek") velger data/formler/<fag>.yaml.
+     Modulscriptet skrives bare første gang per side og slug. */ -}}
+{{- $page := .page -}}
+{{- $ctx := .ctx -}}
+{{- $slug := $page.Params.widget -}}
+{{- $lang := $page.Language.Lang -}}
+{{- $strings := dict -}}
+{{- range $page.Params.strings -}}
+  {{- $s := i18n . -}}
+  {{- if not $s -}}{{- warnf "lab: i18n-nøkkelen %q i strings: gir tom streng (%s, i18n/%s.yaml)" . $page.File.Path $lang -}}{{- end -}}
+  {{- $strings = merge $strings (dict . $s) -}}
+{{- end -}}
+{{- $fag := $page.Params.formelfag | default "eltek" -}}
+{{- $db := index hugo.Data.formler $fag -}}
+{{- if not $db -}}{{- errorf "lab: ukjent formelfag %q (data/formler/%s.yaml) i %s" $fag $fag $page.File.Path -}}{{- end -}}
+{{- $items := slice -}}
+{{- range $page.Params.formulas -}}
+  {{- $f := index $db.formler . -}}
+  {{- if not $f -}}{{- errorf "lab: ukjent formel-ID %q i %s" . $page.File.Path -}}{{- end -}}
+  {{- $fra := slice -}}
+  {{- if $f.avledet -}}
+    {{- $fra = partial "formel-fra.html" (dict "f" $f "db" $db "id" . "lang" $lang) -}}
+    {{- if $fra -}}
+      {{- $fra = (slice (printf "%s %s" (i18n "lab.derivedFrom") (index $fra 0))) | append (after 1 $fra) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $tekst := $f.tekst -}}
+  {{- if reflect.IsMap $tekst }}{{ $tekst = index $tekst $lang }}{{ end -}}
+  {{- $items = $items | append (dict "id" . "navn" (index $f.navn $lang) "tekst" $tekst "side" ($f.side | default 0) "avledet" (default false $f.avledet) "fraNavn" $fra) -}}
+{{- end -}}
+{{- $config := dict "lang" $lang "strings" $strings "formulas" (dict "kilde" $db.kilde.navn "sideLabel" (i18n "lab.sideLabel") "and" (i18n "lab.and") "items" $items) -}}
+{{- $thumb := $page.Resources.Get ($page.Params.thumb | default "thumb.svg") -}}
+{{- if not $thumb -}}{{- errorf "lab: %s mangler thumb.svg" $page.File.Path -}}{{- end -}}
+<div class="lab-widget" data-lab="{{ $slug }}" data-href="{{ $page.Permalink }}" data-thumb="{{ $thumb.Permalink }}" data-title="{{ $page.Title }}">
+<noscript><a href="{{ $page.Permalink }}"><img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}"></a></noscript>
+<script type="application/json" class="lab-config">{{ $config | jsonify | safeJS }}</script>
+{{- $key := printf "lab-js-%s" $slug -}}
+{{- if not ($ctx.Store.Get $key) -}}
+{{- $ctx.Store.Set $key true -}}
+{{- $src := resources.Get (printf "lab/%s.js" $slug) -}}
+{{- if not $src -}}{{- errorf "lab: assets/lab/%s.js mangler (%s)" $slug $page.File.Path -}}{{- end -}}
+{{- $js := $src | js.Build (dict "format" "esm" "minify" true "targetPath" (printf "lab/%s.js" $slug)) | fingerprint }}
+<script type="module" src="{{ $js.RelPermalink }}"></script>
+{{- end -}}
+</div>{{ "<!--/lab-widget-->" | safeHTML }}

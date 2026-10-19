@@ -1,0 +1,44 @@
+{{- define "main" }}
+{{- if not .IsTranslated -}}
+{{- errorf "lab: %s mangler oversettelse" .File.Path -}}
+{{- end -}}
+{{- $lang := .Language.Lang -}}
+{{- $fag := .Params.formelfag | default "eltek" -}}
+{{- $db := index hugo.Data.formler $fag -}}
+{{- if not $db -}}{{- errorf "lab: ukjent formelfag %q (data/formler/%s.yaml) i %s" $fag $fag .File.Path -}}{{- end -}}
+<article class="post-single lab-page">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- with .Description }}<div class="post-description">{{ . }}</div>{{- end }}
+    <div class="post-meta">{{- partial "translation_list.html" . -}}</div>
+  </header>
+  <div class="post-content">
+    {{ partial "lab-widget.html" (dict "page" . "ctx" .) }}
+    {{ .Content }}
+    {{- with .Params.formulas }}
+    <h2>{{ i18n "lab.formulasUsed" }}</h2>
+    <ul class="lab-formulas">
+      {{- range . }}
+      {{- $f := index $db.formler . -}}
+      {{- if not $f -}}{{- errorf "lab: ukjent formel-ID %q i %s" . $.File.Path -}}{{- end }}
+      <li><strong>{{ index $f.navn $lang }}</strong>
+        {{ partial "formel-render.html" (dict "page" $ "db" $db "id" . "f" $f "lang" $lang) }}
+      </li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    {{- $posts := slice }}
+    {{- range .Params.posts }}{{ with site.GetPage . }}{{ $posts = $posts | append . }}{{ end }}{{ end }}
+    {{- if $posts }}
+    <h2>{{ i18n "lab.usedIn" }}</h2>
+    <ul>
+      {{- range $posts }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </div>
+  {{- partial "katex.html" (dict "page" . "force" (gt (len (.Params.formulas | default slice)) 0)) }}
+</article>
+{{- end }}

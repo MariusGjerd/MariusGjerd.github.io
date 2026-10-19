@@ -1,0 +1,17 @@
+{{- /* {{< formel "id" >}} eller {{< formel "id" "fag" >}}. Slår opp formelen i
+     data/formler/<fag>.yaml (standard eltek) og setter den med KaTeX.
+     Ukjent ID feiler bygget. Utdata pakkes i en formel-blokk med egen marg. */ -}}
+{{- $id := .Get 0 -}}
+{{- $fag := .Get 1 | default "eltek" -}}
+{{- $lang := .Page.Language.Lang -}}
+{{- $db := index hugo.Data.formler $fag -}}
+{{- if not $db -}}
+{{- errorf "formel-shortcode: ukjent fag %q (data/formler/%s.yaml) i %s" $fag $fag .Page.File.Path -}}
+{{- end -}}
+{{- $f := index $db.formler $id -}}
+{{- if not $f -}}
+{{- errorf "formel-shortcode: ukjent formel-ID %q i %s (%s)" $id $fag .Page.File.Path -}}
+{{- end -}}
+<div class="formel-blokk">
+{{- partial "formel-render.html" (dict "page" .Page "db" $db "id" $id "f" $f "lang" $lang) -}}
+</div>

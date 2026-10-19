@@ -1,0 +1,24 @@
+{{- /* Én formel med kildelinje. Brukes av shortcoden formel og av lab-siden.
+     Kontekst: dict "page" <side> "db" <formeldb> "id" <id> "f" <formel> "lang" <språk> */ -}}
+{{- $db := .db -}}
+{{- $f := .f -}}
+{{- $lang := .lang -}}
+{{- $tekst := $f.tekst -}}
+{{- if reflect.IsMap $tekst }}{{ $tekst = index $tekst $lang }}{{ end -}}
+{{- with $f.uttrykk -}}
+<span class="formel" data-tex="{{ . }}">{{ $tekst }}</span>
+{{- else -}}
+<span class="formel">{{ $tekst }}</span>
+{{- end -}}
+{{- if $f.avledet }}
+<span class="formel-kilde">
+  {{- i18n "lab.derivedFrom" }}
+  {{- $names := partial "formel-fra.html" (dict "f" $f "db" $db "id" .id "lang" $lang) -}}
+  {{- range $i, $n := $names -}}
+    {{- if $i }}{{ if eq $i (sub (len $names) 1) }} {{ i18n "lab.and" }}{{ else }},{{ end }}{{ end }}
+    {{ $n }}
+  {{- end -}}
+</span>
+{{- else }}
+<span class="formel-kilde">{{ $db.kilde.navn }}{{ with $f.side }}, {{ i18n "lab.sideLabel" }} {{ . }}{{ end }}</span>
+{{- end -}}

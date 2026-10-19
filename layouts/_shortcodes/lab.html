@@ -1,0 +1,9 @@
+{{- /* {{< lab "slug" >}}: rendrer lab-widgeten inline med lenke til lab-siden.
+     Ukjent slug feiler bygget. */ -}}
+{{- $slug := .Get 0 -}}
+{{- $page := site.GetPage (printf "/lab/%s" $slug) -}}
+{{- if not $page -}}
+{{- errorf "lab shortcode: ukjent lab-side %q (%s)" $slug .Page.File.Path -}}
+{{- end -}}
+{{- partial "lab-widget.html" (dict "page" $page "ctx" .Page) -}}
+<p class="lab-open"><a href="{{ $page.Permalink }}">{{ i18n "lab.open" }} &rarr;</a></p>

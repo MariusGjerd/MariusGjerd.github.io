@@ -32,6 +32,7 @@ ShowPostNavLinks = true
 ShowBreadCrumbs = true
 ShowCodeCopyButtons = true
 ShowWordCount = false
+mainSections = ["posts"]
 
 [params.newsletter]
 # Påmeldingslenken boksen faktisk bruker nå.
@@ -84,18 +85,28 @@ style = "github-dark"
 codeFences = true
 lineNos = false
 
+[build]
+noJSConfigInAssets = true
+
 [outputs]
 home = ["HTML", "RSS"]
 
 [taxonomies]
 tag = "tags"
 category = "categories"
+subject = "subjects"
 
 [[languages.en.menu.main]]
 identifier = "checklist"
 name = "Checklist"
 url = "/checklist/"
 weight = 10
+
+[[languages.en.menu.main]]
+identifier = "lab"
+name = "Lab"
+url = "/lab/"
+weight = 15
 
 [[languages.en.menu.main]]
 identifier = "about"
@@ -108,6 +119,12 @@ identifier = "checklist"
 name = "Sjekkliste"
 url = "/no/checklist/"
 weight = 10
+
+[[languages.no.menu.main]]
+identifier = "lab"
+name = "Lab"
+url = "/no/lab/"
+weight = 15
 
 [[languages.no.menu.main]]
 identifier = "about"

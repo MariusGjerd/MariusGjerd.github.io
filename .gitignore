@@ -6,3 +6,9 @@ private/
 # Python-artefakter fra å kjøre kodebonusen lokalt
 __pycache__/
 *.pyc
+
+# Superpowers SDD-arbeidsmappe (scratch, ikke en del av repoet)
+.superpowers/
+
+# Claude Code: skills inneholder kanalstrategi og hoerer ikke hjemme i et aapent repo
+.claude/

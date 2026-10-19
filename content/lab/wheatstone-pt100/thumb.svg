@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 180" width="400" height="180" role="img" aria-label="Wheatstone bridge" fill="none" stroke="#8a8f98" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M200 20 L330 90 L200 160 L70 90 Z"/>
+  <path d="M70 90 H30 M330 90 H370"/>
+  <circle cx="200" cy="20" r="5" fill="#8a8f98"/>
+  <circle cx="200" cy="160" r="5" fill="#8a8f98"/>
+  <circle cx="70" cy="90" r="5" fill="#8a8f98"/>
+  <circle cx="330" cy="90" r="5" fill="#8a8f98"/>
+  <path d="M258 56 L282 70" stroke="#d4600a" stroke-width="8"/>
+  <path d="M142 56 L118 70 M142 124 L118 110 M258 124 L282 110" stroke-width="8"/>
+</svg>
