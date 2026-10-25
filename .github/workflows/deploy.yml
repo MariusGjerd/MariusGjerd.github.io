@@ -22,7 +22,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.153.0
+      # Samme versjon som lokalt (hugo version). Lab-malene bruker hugo.Data, som ikke finnes i 0.153.
+      HUGO_VERSION: 0.162.1
     steps:
       - name: Install Hugo CLI
         run: |
