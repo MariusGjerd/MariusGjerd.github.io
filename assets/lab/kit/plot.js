@@ -88,15 +88,19 @@ export function plot({
       ctx.beginPath();
       ctx.moveTo(sx(xv), m.t); ctx.lineTo(sx(xv), hgt - m.b);
       ctx.stroke();
-      ctx.fillText(formatNumber(xv, 0, lang), sx(xv), hgt - m.b + 14);
+      ctx.fillText(formatNumber(xv, 0, lang), sx(xv), hgt - m.b + 16);
     }
+    // Y-etikettene sentreres vertikalt på linjen, så den nederste ikke kolliderer
+    // med den første x-etiketten i hjørnet.
     ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
     for (const yv of tickValues(yDomain, yTicks)) {
       ctx.beginPath();
       ctx.moveTo(m.l, sy(yv)); ctx.lineTo(w - m.r, sy(yv));
       ctx.stroke();
-      ctx.fillText(formatNumber(yv, Math.abs(yDomain[1]) < 10 ? 1 : 0, lang), m.l - 5, sy(yv) + 4);
+      ctx.fillText(formatNumber(yv, Math.abs(yDomain[1]) < 10 ? 1 : 0, lang), m.l - 6, sy(yv));
     }
+    ctx.textBaseline = 'alphabetic';
     ctx.textAlign = 'center';
     ctx.fillText(xLabel, (m.l + w - m.r) / 2, hgt - 4);
     ctx.save();

@@ -1,4 +1,6 @@
-/* Lab-widgets. Farger har fast betydning: kobber = leder, rød = høy/1,
+/* Lab-widgets i samme databladstil som forsiden (home.css): blå signalfarge,
+   hjørnemerker, monospace-etiketter i versaler.
+   Farger i kretsen har fast betydning: kobber = leder, rød = høy/1,
    blå = lav/0 og målt spenning, lilla = flytende, oransje = sensor/varme. */
 :root {
   --lab-copper: #a8642a;
@@ -6,7 +8,9 @@
   --lab-low: #2064c8;
   --lab-float: #7b3fb5;
   --lab-sensor: #d4600a;
-  --lab-accent: var(--primary); /* nøytral UI-aksent, følger temaet */
+  --lab-accent: var(--signal, #2f6fdd); /* UI-aksent, samme blå som forsiden */
+  --lab-accent-soft: rgba(47, 111, 221, 0.10);
+  --lab-mono: var(--mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
 }
 :root[data-theme="dark"] {
   --lab-copper: #d99a5b;
@@ -14,107 +18,246 @@
   --lab-low: #6aa6ff;
   --lab-float: #c29bff;
   --lab-sensor: #ff9a4d;
+  --lab-accent: #6aa6ff;
+  --lab-accent-soft: rgba(106, 166, 255, 0.14);
 }
 
-.formel-kilde { display: block; font-size: .8rem; color: var(--secondary); }
+/* Felles etikettstil: liten monospace i versaler, som .card-index på forsiden */
+.lab-strip, .lab-label, .lab-tile-label, .lab-card-index, .lab-filter a,
+.lab-summary summary, .formel-kilde {
+  font-family: var(--lab-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
 
+/* ── Widgetrammen: et tegneark med hjørnemerker ── */
 .lab-widget {
+  position: relative;
   box-sizing: border-box;
   max-width: 100%;
-  margin: 1.5rem 0;
-  padding: 1rem;
+  margin: 1.75rem 0;
+  padding: 1rem 1.25rem 1.25rem;
   background: var(--entry);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 2px;
   color: var(--primary);
-  overflow-x: hidden;
 }
+.lab-widget::before, .lab-widget::after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-color: var(--lab-accent);
+  border-style: solid;
+  pointer-events: none;
+}
+.lab-widget::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.lab-widget::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
 .lab-widget *, .lab-widget *::before, .lab-widget *::after { box-sizing: border-box; }
 .lab-widget button, .lab-widget input { font: inherit; }
 
+.lab-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--border);
+  font-size: .68rem;
+  color: var(--secondary);
+}
+.lab-strip span:first-child { color: var(--lab-accent); overflow-wrap: anywhere; }
+.lab-strip span:last-child { white-space: nowrap; }
+
+/* ── Kretsskjema ── */
 .lab-circuit { display: block; width: 100%; height: auto; max-width: 100%; }
 .lab-wire { stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.lab-resistor-body { fill: var(--theme); stroke: currentColor; stroke-width: 2; }
+.lab-resistor-body { fill: var(--entry); stroke: currentColor; stroke-width: 2; }
 .lab-node { fill: currentColor; }
-.lab-probe-ring { fill: var(--theme); stroke: currentColor; stroke-width: 2; }
+.lab-probe-ring { fill: var(--entry); stroke: currentColor; stroke-width: 2; }
 .lab-probe-text { fill: currentColor; font-size: 12px; font-weight: 600; }
-.lab-svg-label { fill: var(--primary); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+.lab-svg-label { fill: var(--primary); font-family: var(--lab-mono); font-size: 12px; }
 .lab-c-copper { color: var(--lab-copper); }
 .lab-c-high { color: var(--lab-high); }
 .lab-c-low { color: var(--lab-low); }
 .lab-c-float { color: var(--lab-float); }
 .lab-c-sensor { color: var(--lab-sensor); }
+.lab-dashed { stroke-dasharray: 5 4; }
 
-.lab-control { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; margin: .6rem 0; }
-.lab-label { font-size: .9rem; color: var(--primary); }
-.lab-value { margin-left: auto; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .9rem; }
+/* ── Kontroller ── */
+.lab-control { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .75rem; margin: 1rem 0 .4rem; }
+.lab-label { font-size: .7rem; color: var(--secondary); }
+.lab-value { margin-left: auto; font-family: var(--lab-mono); font-size: .95rem; color: var(--primary); }
 .lab-range { width: 100%; min-height: 28px; accent-color: var(--lab-accent); }
 .lab-toggle { flex-wrap: nowrap; }
 .lab-check { width: 1.2rem; height: 1.2rem; accent-color: var(--lab-accent); }
 
-/* Ingen overflow: hidden her, den klipper fokusringen. Hjørnene rundes på knappene. */
-.lab-segmented { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: var(--radius); }
-.lab-seg-btn {
-  min-height: 44px; padding: .4rem .9rem; border: 0; background: var(--code-bg);
-  color: var(--primary); cursor: pointer;
+/* Segmentvelger: én rad per valg, så den aldri brekker skjevt i en smal kolonne.
+   Hårstrekene mellom radene er rutenettets bakgrunn som skinner gjennom gap. */
+.lab-segmented {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  width: 100%;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 2px;
 }
-.lab-seg-btn:first-child { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
-.lab-seg-btn:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
-.lab-seg-btn + .lab-seg-btn { border-left: 1px solid var(--border); }
-.lab-seg-btn[aria-pressed="true"] { background: var(--lab-accent); color: var(--theme); }
-.lab-widget :focus-visible { outline: 2px solid var(--lab-low); outline-offset: 2px; }
-/* Ringen tegnes innenfor knappen, så naboknappen ikke dekker den. */
+.lab-widget .lab-seg-btn {
+  min-height: 40px;
+  padding: .45rem .75rem;
+  border: 0;
+  background: var(--entry);
+  color: var(--secondary);
+  text-align: left;
+  font-family: var(--lab-mono);
+  font-size: .8rem;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+}
+.lab-seg-btn:hover { color: var(--primary); }
+.lab-seg-btn[aria-pressed="true"] {
+  background: var(--lab-accent-soft);
+  color: var(--lab-accent);
+  box-shadow: inset 3px 0 0 var(--lab-accent);
+}
+.lab-widget :focus-visible { outline: 2px solid var(--lab-accent); outline-offset: 2px; }
+/* Ringen tegnes innenfor cellen, så naboen ikke dekker den. */
 .lab-widget .lab-seg-btn:focus-visible { outline-offset: -4px; }
 
-.lab-tile { flex: 1 1 8rem; min-width: 0; padding: .6rem .75rem; background: var(--code-bg); border-radius: var(--radius); }
-.lab-tile-label { font-size: .8rem; color: var(--secondary); }
-.lab-tile-value { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.25rem; overflow-wrap: anywhere; }
-.lab-tile-note { font-size: .8rem; color: var(--secondary); }
+/* ── Måleverdier ── */
+.lab-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; align-content: start; min-width: 0; }
+.lab-tile {
+  min-width: 0;
+  padding: .6rem .75rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.lab-tile-label { font-size: .64rem; color: var(--secondary); }
+.lab-tile-value {
+  margin-top: .2rem;
+  font-family: var(--lab-mono);
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+  overflow-wrap: anywhere;
+}
+.lab-tile-note { margin-top: .2rem; font-size: .75rem; line-height: 1.35; color: var(--secondary); }
+.lab-tile--primary {
+  grid-column: 1 / -1;
+  border-color: var(--lab-accent);
+  background: var(--lab-accent-soft);
+}
+.lab-tile--primary .lab-tile-label { color: var(--lab-accent); }
+.lab-tile--primary .lab-tile-value { font-size: 2rem; line-height: 1.15; color: var(--lab-accent); }
 
-.lab-plot { width: 100%; margin: .75rem 0; }
+/* ── Kurve ── */
+.lab-plot { width: 100%; margin: 1.25rem 0 .5rem; }
 .lab-plot-canvas { display: block; width: 100%; }
 
-/* Formellister (widget og lab-side) og formelblokker i innlegg */
-.lab-formulas { list-style: none; margin: .5rem 0; padding: 0 0 0 1.2rem; }
-.lab-formulas li { margin: .5rem 0 .75rem; overflow-wrap: anywhere; }
-.lab-formulas .formel { display: block; font-family: ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
-.formel-blokk { margin: 1.25rem 0 1.5rem; overflow-x: auto; overflow-y: hidden; }
-.formel-blokk .formel { display: block; }
-.formel-blokk .katex-display, .lab-formulas .katex-display { margin: .25rem 0; text-align: left; }
+/* ── Sammenleggbare seksjoner nederst i widgeten ── */
+.lab-summary { margin-top: .5rem; border-top: 1px solid var(--border); }
+.lab-summary summary {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 44px;
+  font-size: .72rem;
+  color: var(--secondary);
+  cursor: pointer;
+  list-style: none;
+}
+.lab-summary summary::-webkit-details-marker { display: none; }
+.lab-summary summary::before { content: "\25B8"; color: var(--lab-accent); transition: transform .12s; }
+.lab-summary[open] summary::before { transform: rotate(90deg); }
+.lab-summary summary:hover { color: var(--primary); }
+.lab-summary-body { padding: 0 0 .75rem; font-size: .95rem; }
 
-.lab-summary { margin-top: .75rem; }
-.lab-summary summary { cursor: pointer; font-weight: 600; min-height: 28px; }
-.lab-summary-body { padding-top: .5rem; }
+/* ── Formler: blokk i innlegg, liste i widget og på lab-siden ── */
+.formel-kilde { display: block; margin-top: .35rem; font-size: .66rem; color: var(--secondary); }
+.formel-blokk {
+  margin: 1.5rem 0;
+  padding: .75rem 1rem;
+  border-left: 2px solid var(--lab-accent);
+  background: var(--code-bg);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.formel-blokk .formel { display: block; }
+.formel-blokk .katex-display, .lab-formulas .katex-display { margin: .15rem 0; text-align: left; }
+.formel-blokk .katex-display > .katex, .lab-formulas .katex-display > .katex { text-align: left; }
+.lab-formulas { list-style: none; margin: .75rem 0; padding: 0; }
+.lab-formulas li {
+  margin: 0 0 .75rem;
+  padding: .75rem 1rem;
+  border-left: 2px solid var(--lab-accent);
+  background: var(--code-bg);
+  overflow-wrap: anywhere;
+}
+.lab-formulas .formel { display: block; margin-top: .25rem; font-family: var(--lab-mono); overflow-wrap: anywhere; }
+.lab-summary .lab-formulas li { background: transparent; padding: .4rem .75rem; }
 
 @media (prefers-reduced-motion: reduce) {
-  .lab-widget * { transition: none !important; animation: none !important; }
+  .lab-widget *, .lab-widget *::before { transition: none !important; animation: none !important; }
 }
 
-/* Lab-oversikt og kort */
-.lab-filter { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0; }
-.lab-filter a, .lab-chip {
-  padding: .15rem .6rem; font-size: .8rem; border: 1px solid var(--border);
-  border-radius: 999px; color: var(--secondary); text-decoration: none;
+/* ── Lab-oversikt: filter og kort i databladstil ── */
+.lab-filter { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.25rem 0 1.5rem; }
+.lab-filter a {
+  padding: .3rem .7rem;
+  font-size: .68rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--secondary);
+  text-decoration: none;
 }
-.lab-filter a[aria-current] { color: var(--primary); border-color: var(--primary); }
-.lab-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+.lab-filter a:hover { color: var(--primary); border-color: var(--secondary); }
+.lab-filter a[aria-current] { color: var(--lab-accent); border-color: var(--lab-accent); background: var(--lab-accent-soft); }
+
+.lab-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1rem; }
 .lab-card {
-  display: flex; flex-direction: column; gap: .5rem; padding: 1rem; min-width: 0;
-  background: var(--entry); border: 1px solid var(--border); border-radius: var(--radius);
-  color: var(--primary); text-decoration: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  padding: 1.1rem 1.2rem 1.2rem;
+  min-width: 0;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--primary);
+  text-decoration: none;
+  transition: border-color .15s;
 }
-.lab-card img { width: 100%; height: auto; display: block; }
-.lab-card h2 { margin: 0; font-size: 1.1rem; }
-.lab-card p { margin: 0; color: var(--secondary); font-size: .9rem; }
-.lab-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
-.lab-open { margin: -.75rem 0 1.5rem; font-size: .9rem; }
+.lab-card::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 11px; height: 11px;
+  border-top: 2px solid var(--lab-accent);
+  border-left: 2px solid var(--lab-accent);
+}
+.lab-card:hover { border-color: var(--lab-accent); }
+.lab-card-index { font-size: .66rem; color: var(--secondary); }
+.lab-card img { width: 100%; height: auto; display: block; margin: .25rem 0; }
+.lab-card h2 { margin: 0; font-size: 1.12rem; line-height: 1.3; }
+.lab-card p { margin: 0; color: var(--secondary); font-size: .9rem; flex: 1; }
+.lab-card-more {
+  font-family: var(--lab-mono);
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--lab-accent);
+}
+.lab-open { margin: -.75rem 0 1.5rem; font-family: var(--lab-mono); font-size: .74rem; letter-spacing: .04em; text-transform: uppercase; }
+.lab-open a { color: var(--lab-accent); }
 
-/* Fliser og widget-oppsett */
-.lab-tiles { display: flex; flex-wrap: wrap; gap: .5rem; align-content: start; min-width: 0; }
-.lab-dashed { stroke-dasharray: 5 4; }
+/* ── Oppsett for Wheatstone-widgeten ── */
 .lab-wb-grid {
-  display: grid; gap: 1rem; align-items: start;
+  display: grid;
+  gap: 1rem 1.5rem;
+  align-items: start;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
 }
 .lab-wb-left { min-width: 0; }
-.lab-wb .lab-segmented { max-width: 100%; }

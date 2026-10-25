@@ -122,7 +122,9 @@ export function mount(root, ctx) {
   const tI = tile({ label: S('current') });
   const tA = tile({ label: S('adc10') });
   const tD = tile({ label: S('ads1115') });
-  tiles.append(tR.el, tV.el, tI.el, tA.el, tD.el);
+  // Utgangsspenningen er poenget, så den får hovedflisen øverst. Resten i et 2×2-rutenett.
+  tV.el.classList.add('lab-tile--primary');
+  tiles.append(tV.el, tR.el, tI.el, tA.el, tD.el);
 
   const top = document.createElement('div');
   top.className = 'lab-wb-grid';

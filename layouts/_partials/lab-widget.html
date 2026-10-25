@@ -1,6 +1,8 @@
 {{- /* Rendrer en lab-widget. Kontekst: dict "page" <lab-side> "ctx" <siden som rendres>.
      Frontmatter på lab-siden: formelfag (standard "eltek") velger data/formler/<fag>.yaml.
-     Modulscriptet skrives bare første gang per side og slug. */ -}}
+     Modulscriptet skrives for hver instans. Nettleseren laster og kjører en ES-modul
+     med samme URL bare én gang, og boot() monterer alle instansene. (En Store-basert
+     dedupe ble fjernet fordi .Store ikke nullstilles ved ombygging i hugo server.) */ -}}
 {{- $page := .page -}}
 {{- $ctx := .ctx -}}
 {{- $slug := $page.Params.widget -}}
@@ -33,14 +35,11 @@
 {{- $thumb := $page.Resources.Get ($page.Params.thumb | default "thumb.svg") -}}
 {{- if not $thumb -}}{{- errorf "lab: %s mangler thumb.svg" $page.File.Path -}}{{- end -}}
 <div class="lab-widget" data-lab="{{ $slug }}" data-href="{{ $page.Permalink }}" data-thumb="{{ $thumb.Permalink }}" data-title="{{ $page.Title }}">
+<div class="lab-strip" aria-hidden="true"><span>Lab / {{ $page.Title }}</span><span>{{ i18n "lab.interactive" }}</span></div>
 <noscript><a href="{{ $page.Permalink }}"><img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}"></a></noscript>
 <script type="application/json" class="lab-config">{{ $config | jsonify | safeJS }}</script>
-{{- $key := printf "lab-js-%s" $slug -}}
-{{- if not ($ctx.Store.Get $key) -}}
-{{- $ctx.Store.Set $key true -}}
 {{- $src := resources.Get (printf "lab/%s.js" $slug) -}}
 {{- if not $src -}}{{- errorf "lab: assets/lab/%s.js mangler (%s)" $slug $page.File.Path -}}{{- end -}}
 {{- $js := $src | js.Build (dict "format" "esm" "minify" true "targetPath" (printf "lab/%s.js" $slug)) | fingerprint }}
 <script type="module" src="{{ $js.RelPermalink }}"></script>
-{{- end -}}
 </div>{{ "<!--/lab-widget-->" | safeHTML }}

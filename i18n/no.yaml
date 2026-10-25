@@ -18,6 +18,10 @@ lab.subject.elektroteknikk-dc:
   other: "Elektroteknikk DC"
 lab.subject.digitalteknikk:
   other: "Digitalteknikk"
+lab.interactive:
+  other: "Interaktiv"
+lab.openCard:
+  other: "Åpne"
 lab.sideLabel:
   other: "s."
 lab.wheatstone-pt100.circuitLabel:
@@ -35,7 +39,7 @@ lab.wheatstone-pt100.load.r1k:
 lab.wheatstone-pt100.rpt:
   other: "Motstand i PT100"
 lab.wheatstone-pt100.vout:
-  other: "Utgangsspenning U_ut"
+  other: "Utgangsspenning"
 lab.wheatstone-pt100.openCircuit:
   other: "Uten last:"
 lab.wheatstone-pt100.current:
@@ -53,7 +57,7 @@ lab.wheatstone-pt100.ads1115Note:
 lab.wheatstone-pt100.plotX:
   other: "Temperatur (°C)"
 lab.wheatstone-pt100.plotY:
-  other: "U_ut (mV)"
+  other: "Utgang (mV)"
 lab.wheatstone-pt100.plotRef:
   other: "Rett linje fra 0 °C"
 lab.wheatstone-pt100.formulasTitle:

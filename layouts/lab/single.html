@@ -13,7 +13,7 @@
     {{- with .Description }}<div class="post-description">{{ . }}</div>{{- end }}
     <div class="post-meta">{{- partial "translation_list.html" . -}}</div>
   </header>
-  <div class="post-content">
+  <div class="post-content md-content">
     {{ partial "lab-widget.html" (dict "page" . "ctx" .) }}
     {{ .Content }}
     {{- with .Params.formulas }}

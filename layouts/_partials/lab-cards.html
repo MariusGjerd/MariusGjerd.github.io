@@ -1,16 +1,17 @@
-{{- /* Kortrutenett. Kontekst: liste med lab-sider. */ -}}
+{{- /* Kortrutenett i databladstil, som «Start her»-kortene på forsiden.
+     Kontekst: liste med lab-sider. */ -}}
 <div class="lab-cards">
-  {{- range . }}
-  {{- $thumb := .Resources.Get (.Params.thumb | default "thumb.svg") }}
-  <a class="lab-card" href="{{ .RelPermalink }}">
-    {{- with $thumb }}<img src="{{ .RelPermalink }}" alt="" width="400" height="180" loading="lazy">{{ end }}
-    <h2>{{ .Title }}</h2>
-    <p>{{ .Description }}</p>
-    {{- with .Params.subjects }}
-    <span class="lab-chips">
-      {{- range . }}<span class="lab-chip">{{ i18n (printf "lab.subject.%s" .) | default . }}</span>{{ end }}
+  {{- range $i, $p := . }}
+  {{- $thumb := $p.Resources.Get ($p.Params.thumb | default "thumb.svg") }}
+  <a class="lab-card" href="{{ $p.RelPermalink }}">
+    <span class="lab-card-index">
+      Lab {{ printf "%02d" (add $i 1) }}
+      {{- range $p.Params.subjects }} · {{ i18n (printf "lab.subject.%s" .) | default . }}{{ end }}
     </span>
-    {{- end }}
+    {{- with $thumb }}<img src="{{ .RelPermalink }}" alt="" width="400" height="180" loading="lazy">{{ end }}
+    <h2>{{ $p.Title }}</h2>
+    <p>{{ $p.Description }}</p>
+    <span class="lab-card-more">{{ i18n "lab.openCard" }} &rarr;</span>
   </a>
   {{- end }}
 </div>
