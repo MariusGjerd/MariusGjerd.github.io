@@ -1,7 +1,7 @@
 ---
 title: "Why your PT100 lives in a Wheatstone bridge"
-date: 2026-10-19
-draft: true
+date: 2026-10-25
+draft: false
 tags: ["pt100", "sensors", "electronics", "adc", "arduino", "data-lifecycle"]
 categories: ["data-lifecycle"]
 description: "A PT100 changes 0.385 ohms per degree. How a Wheatstone bridge turns that into a voltage, what your meter does to it, and why a plain Arduino input can't read it."
@@ -14,7 +14,6 @@ A PT100 changes its resistance by 0.385 ohms per degree. That is not much. The c
 
 Put that tiny change in a panel full of contactors and frequency drives, and you have a problem. You need to see a fraction of an ohm, reliably, next to equipment that throws electrical noise around all day.
 
-<!-- MARIUS: sjekk -->
 As an electrician I pulled the cable to PT100s and landed it on terminals. What happened to the signal after that was someone else's job. This post is me opening that box.
 
 The classic answer is a Wheatstone bridge. Modern transmitters often use a precise current source and a good converter instead. But the bridge is the clearest way to see the actual problem, so that is where we start.

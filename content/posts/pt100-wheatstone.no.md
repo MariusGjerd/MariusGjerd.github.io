@@ -1,12 +1,12 @@
 ---
 title: "Hvorfor PT100-en din sitter i en Wheatstone-bro"
-date: 2026-10-19
-draft: true
+date: 2026-10-25
+draft: false
 tags: ["pt100", "sensorer", "elektronikk", "adc", "arduino", "data-lifecycle"]
 categories: ["data-lifecycle"]
 description: "En PT100 endrer seg 0,385 ohm per grad. Slik gjør en Wheatstone-bro det om til en spenning, slik påvirker måleinstrumentet svaret, og derfor klarer ikke en vanlig Arduino-inngang å lese den."
 keywords: ["PT100", "Wheatstone-bro", "temperatursensor", "motstandstermometer", "ADS1115", "Arduino ADC", "Thevenin", "spenningsdeler", "egenoppvarming"]
-images: ["/og/pt100-wheatstone.png"]
+images: ["/og/pt100-wheatstone-no.png"]
 summary: "En PT100 endrer seg under en halv ohm per grad. Her er hvordan en Wheatstone-bro gjør det om til et signal, hvorfor instrumentet du kobler til endrer svaret, og hvorfor omformeren betyr mer enn du tror. Med en interaktiv krets og en Arduino-skisse."
 ---
 
@@ -14,7 +14,6 @@ En PT100 øker med 0,385 ohm for hver grad den blir varmere. Det er veldig lite.
 
 I et skap fullt av kontaktorer og frekvensomformere er det et problem. Du skal se en brøkdel av en ohm, hver gang, ved siden av utstyr som lager elektrisk støy hele dagen.
 
-<!-- MARIUS: sjekk -->
 Som elektriker trakk jeg kabel til PT100-er og koblet dem opp på rekkeklemmer. Hva som skjedde med signalet videre, var ikke min jobb. Nå vil jeg forstå den delen også.
 
 Den klassiske løsningen er en Wheatstone-bro. Moderne måleomformere bruker ofte en presis strømkilde og en god omformer i stedet. Men broen viser selve problemet tydeligst, så det er der vi begynner.
